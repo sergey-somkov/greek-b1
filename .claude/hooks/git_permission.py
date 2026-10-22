@@ -4,8 +4,9 @@ Permission rules match commands by prefix, so they cannot tell `git branch -vv`
 from `git branch new-name`, and an `ask` rule always wins over an `allow` rule.
 This hook reads the whole Bash command and decides:
 
-- allow: a single read-only git command, such as `git log`, `git branch -vv`,
-  `git tag -l`, `git config --get user.name`, `git stash list`;
+- allow: read-only git commands, such as `git log`, `git branch -vv`,
+  `git tag -l`, `git config --get user.name`, `git stash list`, alone or
+  joined by &&, ||, ; or |, optionally with `cd <dir>` among them;
 - ask: a command that may change the repository through a subcommand that has
   both read-only and changing forms (branch, tag, config, worktree, stash,
   clean, remote, reflog), also inside a compound command;
@@ -190,8 +191,12 @@ MIXED_CHECKS = {
 }
 
 
-def split_simple_command(command):
-    """Returns the words of a simple command, or None if it uses shell syntax."""
+SEPARATORS = {"&&", "||", ";", "|"}
+
+
+def split_commands(command):
+    """Returns the words of each simple command joined by &&, ||, ; or |,
+    or None if the command uses other shell syntax."""
     if re.search(r"[$`\n\\]", command):
         return None
     lexer = shlex.shlex(command, posix=True, punctuation_chars=True)
@@ -201,9 +206,20 @@ def split_simple_command(command):
         words = list(lexer)
     except ValueError:
         return None
-    if any(word and set(word) <= set("();<>|&") for word in words):
-        return None
-    return words
+    commands = [[]]
+    for word in words:
+        if word in SEPARATORS:
+            commands.append([])
+        elif word and set(word) <= set("();<>|&"):
+            return None
+        else:
+            commands[-1].append(word)
+    return [words for words in commands if words]
+
+
+def is_cd(words):
+    """`cd <dir>` changes no files, so it does not affect the decision."""
+    return len(words) == 2 and words[0] == "cd"
 
 
 def classify(words):
@@ -242,12 +258,19 @@ def main():
     command = json.load(sys.stdin).get("tool_input", {}).get("command", "").strip()
     if not re.search(r"\bgit\b", command):
         return
-    words = split_simple_command(command)
-    decision = classify(words) if words else None
-    if decision == "allow":
-        decide("allow", "Read-only git command.")
-    elif decision == "ask" or MIXED.search(command):
+    commands = split_commands(command)
+    if not commands:
+        if MIXED.search(command):
+            decide("ask", "The git command may change the repository.")
+        return
+    decisions = [None if is_cd(words) else classify(words) for words in commands]
+    if any(decision == "ask" or (decision is None and MIXED.search(" ".join(words)))
+           for words, decision in zip(commands, decisions)):
         decide("ask", "The git command may change the repository.")
+    elif "allow" in decisions and all(
+            decision == "allow" or is_cd(words)
+            for words, decision in zip(commands, decisions)):
+        decide("allow", "Read-only git command.")
 
 
 if __name__ == "__main__":
