@@ -1,0 +1,19 @@
+[versions]
+# AGP 9.4 needs Gradle 9.6.0 or newer and supports API levels up to 37.
+# The build shows one deprecation warning from a plugin (Configuration.setVisible,
+# to be removed in Gradle 11), none from our scripts.
+agp = "9.4.1"
+kotlin = "2.4.21"
+compose-bom = "2026.09.00"
+activity-compose = "1.13.0"
+mlkit-digital-ink = "19.0.0"
+
+[libraries]
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
+mlkit-digital-ink = { group = "com.google.mlkit", name = "digital-ink-recognition", version.ref = "mlkit-digital-ink" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

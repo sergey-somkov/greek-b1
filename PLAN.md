@@ -42,11 +42,13 @@ For a story large enough to need review checkpoints, create a temporary `STORY.m
 3. **Productive skills** (stories 9–13): writing, handwriting, speaking, and their assessment by the LLM.
 4. **Exam readiness** (stories 14–18): the mock exam, the daily plan, the review of mistakes, full content coverage, and backup.
 
+All the stories are to be done before the exam session of January 2027 (see [README.md](README.md#the-exam)).
+
 ## MVP plan
 
 ### 1. Environment, key questions and architecture
 - Branch: `story/foundation`
-- Status: Not started
+- Status: Done
 
 Make the development environment work end to end: JDK, Android SDK command-line tools and Gradle on this machine, and `adb` access to the phone (USB or wireless debugging). An empty app is built from the command line and installed on the phone. Answer the main open questions of DESIGN.md: which exam and when, the Android version of the phone, and what the phone supports for Greek — the installed TTS voices, offline speech recognition, and ML Kit Digital Ink. Update DESIGN.md with the answers and with the architecture decisions that follow from them.
 
@@ -54,13 +56,13 @@ Make the development environment work end to end: JDK, Android SDK command-line 
 - Branch: `story/exam-spec`
 - Status: Not started
 
-Collect the official description of the exam and its sample papers. Write down, in the repository, the structure of each part: the task types, the number of items, the timing, the length of texts, and the assessment criteria. Make the catalog of B1 topics that the exam uses, each with its typical situations and vocabulary areas. Every content item and every exercise later refers to this catalog and to these task types.
+Collect the official description of the exam and its sample papers. Write down, in the repository, the structure of each part: the task types, the number of items, the timing, the length of texts, and the assessment criteria. Make the catalog of B1 topics that the exam uses, each with its typical situations and vocabulary areas. Every content item and every exercise later refers to this catalog and to these task types. Work from the UCY documents in `docs/sources/`, and check the format of the KEG exam, the fallback, for the differences.
 
 ### 3. App skeleton
 - Branch: `story/app-skeleton`
 - Status: Not started
 
-The base structure of the app: Kotlin, Jetpack Compose, navigation between the main screens (home, the four parts, progress, settings), the Room database, the settings store, and the test setup. Scripts to build, install and run the tests from the command line. No learning features yet.
+The base structure of the app: Kotlin, Jetpack Compose, navigation between the main screens (home, the four parts, progress, settings), the Room database, the settings store, and the test setup. Scripts to build, install and run the tests from the command line. No learning features yet. The empty app of story 1 in `app/` grows into the skeleton, and its capability probe (package `probe`) becomes a diagnostics screen in the settings.
 
 ### 4. Content format and pipeline
 - Branch: `story/content-pipeline`
@@ -84,7 +86,7 @@ The reading part: the task types of the exam (for example multiple choice, match
 - Branch: `story/listening`
 - Status: Not started
 
-The listening part: the task types of the exam, an audio player (play, pause, replay as the exam allows, speed), and the questions. Audio comes from the Android system TTS. Dialogues use different voices if the phone has them, otherwise one voice with a different pitch and rate per speaker. The first batch of listening content.
+The listening part: the task types of the exam, an audio player (play, pause, replay as the exam allows, speed), and the questions. Audio comes from the Android system TTS. The phone has one Greek voice for apps, so dialogues use a different pitch and rate per speaker. The first batch of listening content.
 
 ### 8. Pre-generated neural audio
 - Branch: `story/neural-audio`
@@ -114,13 +116,13 @@ A handwriting canvas for the S Pen. ML Kit Digital Ink recognizes the Greek text
 - Branch: `story/speech-engine`
 - Status: Not started
 
-Compare the offline speech-to-text engines for Greek on the phone (the Android on-device recognizer, Vosk, whisper.cpp) on real recordings of the user: accuracy, speed, and how much they hide errors. Put the chosen engine behind an interface. The recording is kept with its transcript, for replay and for later analysis.
+Compare the offline speech-to-text engines for Greek on the phone (Vosk, whisper.cpp; the Android recognizer has no Greek, see DESIGN.md) on real recordings of the user: accuracy, speed, and how much they hide errors. Put the chosen engine behind an interface. The recording is kept with its transcript, for replay and for later analysis.
 
 ### 13. Speaking
 - Branch: `story/speaking`
 - Status: Not started
 
-The speaking part: the task types of the exam (for example interview questions, picture description, role play), the prompts read by TTS where the exam has an examiner, a timed recording, the transcript from story 12, and the assessment of content, vocabulary and fluency (with simple measures such as words per minute and pauses). The first batch of speaking tasks.
+The speaking part: the task types of the exam (for example interview questions, picture description, role play), the prompts read by TTS where the exam has an examiner or a partner (the exam is taken in pairs, and the role play is between the two candidates), a timed recording, the transcript from story 12, and the assessment of content, vocabulary and fluency (with simple measures such as words per minute and pauses). The first batch of speaking tasks.
 
 ### 14. Mock exam
 - Branch: `story/mock-exam`

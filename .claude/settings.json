@@ -12,8 +12,57 @@
       "Bash(git cherry-pick *)",
       "Bash(git revert *)",
       "Bash(git am *)",
-      "Bash(git branch *)",
-      "Bash(git switch *)"
+      "Bash(git switch *)",
+      "Bash(git restore *)",
+      "Bash(gh *)",
+      "Bash(sudo)",
+      "Bash(sudo *)",
+      "Bash(su)",
+      "Bash(su *)",
+      "Bash(pkexec *)",
+      "Bash(doas *)",
+      "Bash(systemctl *)",
+      "Bash(crontab *)",
+      "Bash(bash)",
+      "Bash(bash -s*)",
+      "Bash(sh)",
+      "Bash(sh -s*)",
+      "Bash(*| bash*)",
+      "Bash(*| sh*)",
+      "Bash(pip install *)",
+      "Bash(pip3 install *)",
+      "Bash(python3 -m pip install *)",
+      "Bash(rm -r*)",
+      "Bash(rm -f*)",
+      "Bash(rm -R*)",
+      "Bash(rm --recursive*)",
+      "Bash(*>*.bashrc*)",
+      "Bash(*tee *.bashrc*)",
+      "Bash(*sed *-i*.bashrc*)",
+      "Bash(*cp *.bashrc*)",
+      "Bash(*mv *.bashrc*)",
+      "Bash(*ln *.bashrc*)",
+      "Bash(*rm *.bashrc*)",
+      "Bash(*>*.profile*)",
+      "Bash(*tee *.profile*)",
+      "Bash(*sed *-i*.profile*)",
+      "Bash(*cp *.profile*)",
+      "Bash(*mv *.profile*)",
+      "Bash(*ln *.profile*)",
+      "Bash(*rm *.profile*)",
+      "Edit(~/.bashrc)",
+      "Edit(~/.bash_profile)",
+      "Edit(~/.profile)",
+      "Edit(~/.claude/settings.json)",
+      "Edit(.claude/settings.json)",
+      "Edit(.claude/settings.local.json)",
+      "Bash(adb *uninstall*)",
+      "Bash(adb *pm clear*)",
+      "Bash(adb *pm disable*)",
+      "Bash(adb * rm *)",
+      "Bash(adb *reboot*)",
+      "Bash(adb *settings put*)",
+      "Bash(adb *shell input *)"
     ],
     "deny": [
       "Bash(git add *)",
@@ -35,6 +84,20 @@
       "Bash(git -c *)",
       "Bash(git --git-dir*)",
       "Bash(git --work-tree*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/git_permission.py\"",
+            "onFailure": "block"
+          }
+        ]
+      }
     ]
   }
 }

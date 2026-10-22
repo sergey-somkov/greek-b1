@@ -1,3 +1,7 @@
 {
-	"cSpell.language": "el,en"
+	"cSpell.language": "el,en",
+	"cSpell.words": [
+		"androidx",
+		"YubiKey"
+	]
 }
