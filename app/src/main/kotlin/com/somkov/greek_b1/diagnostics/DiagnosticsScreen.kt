@@ -1,6 +1,7 @@
-package com.somkov.greek_b1.probe
+package com.somkov.greek_b1.diagnostics
 
 import android.Manifest
+import android.app.Application
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -40,25 +41,34 @@ import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.somkov.greek_b1.R
+import com.somkov.greek_b1.ScreenScaffold
 
 /**
- * The capability probe: what the phone offers for Greek TTS, speech recognition and handwriting.
- * It stays in the app as a diagnostics screen, to see what a system update or a new phone changes.
+ * The capability probe of story 1, opened from the settings: what the phone offers for Greek TTS,
+ * speech recognition and handwriting, to see what a system update or a new phone changes.
  */
 @Composable
-fun ProbeScreen(tts: TtsProbe, speech: SpeechProbe, ink: InkProbe, modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier.verticalScroll(rememberScrollState()).padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        TtsSection(tts)
-        HorizontalDivider()
-        SpeechSection(speech)
-        HorizontalDivider()
-        InkSection(ink)
+fun DiagnosticsScreen(onBack: () -> Unit) {
+    val application = LocalContext.current.applicationContext as Application
+    // Scoped to the entry of this screen on the back stack, so it is cleared when the screen closes.
+    val viewModel = viewModel { DiagnosticsViewModel(application) }
+    ScreenScaffold(stringResource(R.string.diagnostics), onBack) { innerPadding ->
+        Column(
+            modifier = Modifier.padding(innerPadding).verticalScroll(rememberScrollState()).padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            TtsSection(viewModel.tts)
+            HorizontalDivider()
+            SpeechSection(viewModel.speech)
+            HorizontalDivider()
+            InkSection(viewModel.ink)
+        }
     }
 }
 

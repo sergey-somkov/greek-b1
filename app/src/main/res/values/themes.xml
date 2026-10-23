@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The window theme, shown only until Compose draws; the colors come from GreekB1Theme.
+         The night variant keeps a light window from flashing on start in dark mode. -->
+    <style name="Theme.GreekB1" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>

@@ -1,15 +1,16 @@
 # Technical Design
 
-The architecture of the app: the main ideas, the decisions made, and the open questions. See [README.md](README.md) for the purpose and [PLAN.md](PLAN.md) for the plan.
+The architecture of the app: the main ideas, the decisions made, and the open questions. See [README.md](README.md) for the purpose and [PLAN.md](PLAN.md) for the plan. The details of the implementation and the local decisions are in the comments of the code; this document links to them.
 
 ## Status
 
-Story 1 settled the exam (see [README.md](README.md#the-exam)), the phone and the toolchain. Story 2 described the exam format and fixed the catalogs that the content refers to (see [Exam specification](#exam-specification)). The rest is still a first draft, written before the features.
+Story 1 settled the exam (see [README.md](README.md#the-exam)), the phone and the toolchain. Story 2 described the exam format and fixed the catalogs that the content refers to. Story 3 built the skeleton of the app: the navigation, the database, the tests and the scripts. The rest is still a first draft, written before the features.
 
 ## Constraints
 
 - **One user, one phone:** Samsung Galaxy S22 Ultra (`SM-S908B`, `arm64-v8a`, built-in S Pen), Android 16 (API level 36), One UI 8.0. No backend of our own, no accounts.
 - **A fixed deadline:** the exam session of January 2027, with one attempt (see [README.md](README.md#the-exam)).
+- **The progress data is never lost.** It exists only on the phone (until the backup of story 18), so the signing key, the application ID, the install script, the database migrations and the tests are all built so that nothing removes it.
 - **Offline first.** Practice works without a network. Only the assessment of writing and speaking needs the network, and it can wait until the network is back.
 - **The exam is the scope.** Each piece of content refers to a task type and a B1 topic of the catalogs of story 2.
 - **Claude Code writes the code and the content; the user reviews.** The code must be easy to understand: few layers, no clever abstractions.
@@ -21,7 +22,7 @@ Story 1 settled the exam (see [README.md](README.md#the-exam)), the phone and th
 repository
 ├── app/        Android app (Kotlin, Jetpack Compose), a self-contained Gradle build
 ├── content/    source of the learning content: topics, tasks, dialogue scripts
-├── tools/      scripts: content validator, audio generation
+├── tools/      scripts: build, install and tests; later the content validator and audio generation
 └── docs/       exam specification, catalogs and the official sources
 ```
 
@@ -36,20 +37,23 @@ The exam is written down in `docs/`: [exam-spec.md](docs/exam-spec.md) (the stru
 
 - **Stable IDs** for the task types, topics, situations, functions and criteria. An ID in use is never renamed or reused, since the user tables keep results and mistakes by ID. The IDs live in the tables of these documents until story 4 makes a machine-readable catalog in `content/` from them; from then on that file is their source.
 - **Every content item is in the exam form** (the counts and the shape of its task type), so any item can go into a mock exam. Practice changes how an item is run, not the item.
+- **The official sources are part of the repository**, encrypted with git-crypt: `docs/sources/` holds copyrighted sample papers, and the repository is public. Only the index [docs/sources/README.md](docs/sources/README.md) stays readable.
 
 ## The app
 
-- **Language and UI:** Kotlin, Jetpack Compose, Material 3.
-- **Structure:** one Gradle module, the only project of the build in `app/`; packages by feature (`reading`, `listening`, `writing`, `speaking`, `progress`, …) and a few shared packages (`content`, `data`, `speech`, `ink`, `assessment`).
-- **State:** a `ViewModel` per screen with `StateFlow`; Compose screens observe it.
-- **Data:** Room (SQLite). Two kinds of tables:
+- **Language and UI:** Kotlin, Jetpack Compose, Material 3 with the phone's dynamic colors.
+- **The language of the UI is English.** The tasks are in Greek, as in the exam. Where training shows a translation of Greek (a dictionary, for example), it is Greek to Russian, the user's language.
+- **Structure:** one Gradle module, the only project of the build in `app/`; packages by feature (`home`, `reading`, `listening`, `writing`, `speaking`, `progress`, `settings`, `diagnostics`) and a few shared packages (`data`, `theme`; later `content`, `speech`, `ink`, `assessment`).
+- **Navigation:** Navigation 3; home is a hub with a tile for each of the other screens, and back returns to it (see [Navigation.kt](app/src/main/kotlin/com/somkov/greek_b1/Navigation.kt)).
+- **State:** a `ViewModel` per screen with `StateFlow`; Compose screens observe it. A ViewModel lives as long as its screen is on the back stack.
+- **Data:** Room (SQLite) on the phone's own SQLite. Two kinds of tables:
   - content tables, rewritten from the APK's content on each content update;
   - user tables (sessions, attempts, results, assessments, recordings), never rewritten, linked to content by stable IDs.
-- **Dependency injection:** manual (a small app container) unless the app grows enough to need Hilt.
+- **The database is migrated, never dropped**, and every schema version is exported and tested; the rules are in [Migrations.kt](app/src/main/kotlin/com/somkov/greek_b1/data/Migrations.kt).
+- **Dependency injection:** manual, with a small app container ([AppContainer.kt](app/src/main/kotlin/com/somkov/greek_b1/AppContainer.kt)), unless the app grows enough to need Hilt.
 - **SDK levels:** `minSdk` is the phone's API level, so no compatibility code for older Android versions. The values and their reasons are in [app/build.gradle.kts](app/build.gradle.kts).
-- **The signing key is part of the repository**, encrypted with git-crypt, because a new key forces an uninstall, which loses the progress data. Details in [app/build.gradle.kts](app/build.gradle.kts).
-- **The exam sources are part of the repository**, encrypted with git-crypt: `docs/sources/` holds copyrighted sample papers, and the repository is public. Only the index `docs/sources/README.md` stays readable.
-- **Diagnostics:** the capability probe of story 1 (package `probe`) stays in the app as a diagnostics screen. It shows what a system update or a new phone changes: the TTS voices, the recognizer languages, the ink model.
+- **The signing key is part of the repository**, encrypted with git-crypt, because a new key forces an uninstall. Details in [app/build.gradle.kts](app/build.gradle.kts).
+- **Diagnostics:** a screen under the settings (package `diagnostics`) probes what a system update or a new phone changes: the TTS voices, the recognizer languages, the ink model. The probes keep the findings about the phone in their comments.
 
 ## Content
 
@@ -61,18 +65,18 @@ The exam is written down in `docs/`: [exam-spec.md](docs/exam-spec.md) (the stru
 ## Audio (listening)
 
 - **Pre-generated neural audio** for the listening content: dialogue scripts with speakers, turned into audio files by a cloud neural TTS on the development machine. Real male and female voices; plays offline.
-- **System TTS** (Android `TextToSpeech`) for text that exists only at run time: single words, the prompts of the speaking part, or as a fallback. The engine is Google's: Samsung TTS, the phone's default, is closed to other apps (see [TtsProbe.kt](app/src/main/kotlin/com/somkov/greek_b1/probe/TtsProbe.kt)). Google has one Greek voice, `el-gr-x-vfz`; the app uses its `-local` variant, which works offline and starts at once (the `-network` variant took 850 ms on first use and sounds the same). With one voice, different speakers differ only by pitch and rate.
+- **System TTS** (Android `TextToSpeech`) for text that exists only at run time: single words, the prompts of the speaking part, or as a fallback. The phone gives the app one offline Greek voice (see [TtsProbe.kt](app/src/main/kotlin/com/somkov/greek_b1/diagnostics/TtsProbe.kt)), so different speakers differ only by pitch and rate.
 
 ## Speech (speaking)
 
-- An interface `SpeechToText` with one implementation chosen in story 12 from: Vosk, whisper.cpp. The Android recognizer drops out: neither the on-device nor the default recognizer supports Greek on the phone, and the Greek model cannot be downloaded (see [SpeechProbe.kt](app/src/main/kotlin/com/somkov/greek_b1/probe/SpeechProbe.kt)).
+- An interface `SpeechToText` with one implementation chosen in story 12 from: Vosk, whisper.cpp. The Android recognizer has no Greek on the phone (see [SpeechProbe.kt](app/src/main/kotlin/com/somkov/greek_b1/diagnostics/SpeechProbe.kt)).
 - The app keeps the recording with its transcript.
 - What is assessed: content, vocabulary, grammar as far as the transcript shows it, and fluency (words per minute, pauses). Pronunciation is not assessed. Speech recognizers tend to correct errors, so the transcript can look better than the speech was. This is a known limit.
 
 ## Handwriting (writing)
 
 - A drawing canvas that takes S Pen input (`MotionEvent` with the stylus tool type).
-- ML Kit Digital Ink Recognition with the Greek model (`el`), offline after a one-time model download (22.7 MB, a few seconds). Tested in story 1: short handwritten sentences are recognized correctly, with accents and punctuation, in 50–60 ms. The Greek model gives no scores for the candidates. The library adds about 7 MB of native code to the APK, so the APK holds only the `arm64-v8a` ABI.
+- ML Kit Digital Ink Recognition with the Greek model, offline after a one-time download; tested on the phone in story 1 (see [InkProbe.kt](app/src/main/kotlin/com/somkov/greek_b1/diagnostics/InkProbe.kt)).
 - The recognized text is shown for correction before it is submitted. Keyboard input stays available.
 
 ## Assessment
@@ -90,15 +94,9 @@ The exam is written down in `docs/`: [exam-spec.md](docs/exam-spec.md) (the stru
 
 ## Development environment
 
-- JDK, Android SDK command-line tools and the Gradle wrapper on the development machine (Linux). No Android Studio needed.
-- **JDK 21** from the Ubuntu package: updated with the system, and the version that Android Studio bundles, so AGP, Gradle and Kotlin support it.
-- **Android SDK in `~/Android/Sdk`**, the default location of Android Studio, in case it is ever needed. It is managed with the Android CLI (`android`), since `sdkmanager` is deprecated; usage metrics are turned off.
-- **Build versions:** the latest stable ones, in [app/gradle/libs.versions.toml](app/gradle/libs.versions.toml) and the Gradle wrapper.
-- **The phone is connected by USB** (`adb`), not by wireless debugging.
-- The setup steps are in [README.md](README.md#development-setup).
-- Claude Code builds, installs (`adb install`) and reads the logs (`adb logcat`) from the command line.
-- Unit tests run on the JVM. Tests on the device only where the platform is the point (TTS, STT, ink).
-- The scripts in `tools/` are in Python.
+- **The command line only:** JDK, the Android SDK command-line tools and the Gradle wrapper on Linux, no Android Studio; the phone over USB. The setup and its reasons are in [README.md](README.md#development-setup).
+- **One script per command** in `tools/`: build, install, start, the log, the tests. They are shell scripts while they only call `gradlew` and `adb`; scripts with logic of their own (the content validator, the audio generation) are in Python.
+- **Tests:** JUnit 4. Unit tests run on the JVM; tests on the phone only where the platform is the point (the navigation, the database, later TTS, STT and ink). The tests on the phone run against a copy of the app under its own application ID, never against the installed app (see [app/build.gradle.kts](app/build.gradle.kts)).
 
 ## Open questions
 

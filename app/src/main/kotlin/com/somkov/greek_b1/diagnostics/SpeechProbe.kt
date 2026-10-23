@@ -1,4 +1,4 @@
-package com.somkov.greek_b1.probe
+package com.somkov.greek_b1.diagnostics
 
 import android.content.Context
 import android.content.Intent
@@ -28,6 +28,7 @@ class SpeechProbe(private val context: Context) {
 
     private val mainExecutor = context.mainExecutor
     private var recognizer: SpeechRecognizer? = null
+    private var stopped = false
 
     fun start() {
         log.add("recognition available: ${SpeechRecognizer.isRecognitionAvailable(context)}")
@@ -40,6 +41,7 @@ class SpeechProbe(private val context: Context) {
     }
 
     private fun checkSupport(onDevice: Boolean, then: () -> Unit = {}) {
+        if (stopped) return
         val name = recognizerName(onDevice)
         val checker = createRecognizer(onDevice)
         checker.checkRecognitionSupport(greekIntent(onDevice), mainExecutor, object : RecognitionSupportCallback {
@@ -135,6 +137,7 @@ class SpeechProbe(private val context: Context) {
     }
 
     fun shutdown() {
+        stopped = true
         recognizer?.destroy()
         recognizer = null
     }

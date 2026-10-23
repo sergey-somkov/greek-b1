@@ -44,26 +44,26 @@ The app has one job: to get its single user through the B1 exam. It is not a gen
 
 ## Development setup
 
-On Linux (Ubuntu 24.04), without Android Studio. The reasons for the toolchain are in [DESIGN.md](DESIGN.md#development-environment); the versions are in [app/gradle/libs.versions.toml](app/gradle/libs.versions.toml) and [app/build.gradle.kts](app/build.gradle.kts).
+On Linux (Ubuntu 24.04), with the command-line tools only: no Android Studio is needed. The build uses the latest stable versions, in [app/gradle/libs.versions.toml](app/gradle/libs.versions.toml), [app/build.gradle.kts](app/build.gradle.kts) and the Gradle wrapper.
 
-1. **JDK:** `sudo apt-get install openjdk-21-jdk-headless`.
-2. **Android SDK** in `~/Android/Sdk`:
+1. **JDK:** `sudo apt-get install openjdk-21-jdk-headless`. The Ubuntu package is updated with the system, and JDK 21 is the version that Android Studio bundles, so AGP, Gradle and Kotlin support it.
+2. **Android SDK** in `~/Android/Sdk`, the default location of Android Studio, in case it is ever needed. It is managed with the Android CLI (`android`), since `sdkmanager` is deprecated:
    - Unpack the command-line tools zip from [developer.android.com/studio](https://developer.android.com/studio) (check its SHA-256 against the page) to `~/Android/Sdk/cmdline-tools/latest`.
    - In `~/.profile`: `export ANDROID_HOME="$HOME/Android/Sdk"` and add `$ANDROID_HOME/cmdline-tools/latest/bin` and `$ANDROID_HOME/platform-tools` to `PATH`.
    - Put `--no-metrics` into `~/.androidrc`. The Android CLI (`android`) collects usage metrics by default: the commands, the option names and the names of environment variables. `~/.androidrc` applies to every call, also through `sdkmanager`, which since cmdline-tools 22.0 is a deprecated script that calls `android sdk`. On the first run the CLI unpacks itself with its own JRE into `~/.android/` (about 250 MB). `android init` (skills for agents) is not needed.
    - Install `cmdline-tools;latest`, `platform-tools`, the platform and the build tools that `app/build.gradle.kts` uses (`android sdk install …`), and accept the licenses (`sdkmanager --licenses`). Update with `android sdk update` and the CLI itself with `android update`.
 3. **The phone:** enable the developer options and USB debugging, turn off Auto Blocker (it blocks commands over USB), connect by USB and authorize the machine; `adb devices` shows the phone as `device`. No udev rule is needed: the system hwdb marks the phone (`04e8:6860`) as a media player, and `70-uaccess.rules` gives the session user access to it.
 4. **The signing key and the sources:** `git-crypt unlock` with the user's GPG key on the YubiKey (`2D4915021E880180A0B1963DCDF9857CB81BADBC`). That GPG key has no backup outside the YubiKey, so the exported git-crypt key is kept in the password manager. The unlocked `app/debug.keystore` has the certificate SHA-256 `59:1C:4F:C1:E1:AA:3D:BC:F2:22:A3:2E:B9:26:74:A4:7D:1A:8B:E4:24:73:37:41:C7:E8:9F:1C:DD:B7:63:4B` (`keytool -list -v -keystore app/debug.keystore -storepass android`).
-5. **Build, install, run** (from `app/`):
+5. **Build, install, run and test** with the scripts in `tools/`, from any directory. Each script says at its top what it does and where its extra arguments go.
 
-   ```sh
-   ./gradlew assembleDebug
-   adb install -r build/outputs/apk/debug/greek-b1-debug.apk
-   adb shell am start -n com.somkov.greek_b1/.MainActivity
-   adb logcat -s GreekB1 GreekB1Probe
-   ```
+   - `tools/build.sh`: builds the debug APK.
+   - `tools/install.sh`: installs the APK over the installed app (`adb install -r`). It refuses an APK signed with another key, and takes no arguments, so it cannot lose the progress data.
+   - `tools/start.sh`: starts the app on the phone.
+   - `tools/logs.sh`: follows the log of the app, crashes and library messages included; `-d` prints it and exits.
+   - `tools/test.sh`: runs the unit tests on the JVM; the phone is not needed.
+   - `tools/test-device.sh`: runs the tests on the phone (the navigation, the database). They run against a copy of the app under its own application ID, which Gradle installs and removes; the installed app and its data are not touched.
 
-   Always install with `-r` over the installed app: an uninstall loses the progress data.
+   Never uninstall the app or clear its data: that loses the progress data.
 
 ## Documents
 

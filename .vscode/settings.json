@@ -2,6 +2,9 @@
 	"cSpell.language": "el,en",
 	"cSpell.words": [
 		"androidx",
+		"gradlew",
+		"kotlinx",
+		"mlkit",
 		"YubiKey"
 	]
 }

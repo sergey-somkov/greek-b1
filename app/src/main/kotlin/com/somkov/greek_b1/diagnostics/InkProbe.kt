@@ -1,4 +1,4 @@
-package com.somkov.greek_b1.probe
+package com.somkov.greek_b1.diagnostics
 
 import android.content.Context
 import android.os.SystemClock
@@ -20,7 +20,13 @@ import java.io.File
 /** A point of a handwritten stroke, in pixels of the writing pad, with its time in ms. */
 data class InkPoint(val x: Float, val y: Float, val t: Long)
 
-/** Downloads the ML Kit Digital Ink model for Greek and recognizes handwriting with it. */
+/**
+ * Downloads the ML Kit Digital Ink model for Greek and recognizes handwriting with it.
+ *
+ * On the phone (2026-10) the Greek model (`el`) downloads once in a few seconds (22.7 MB) and then
+ * works offline. Short handwritten sentences are recognized correctly, with accents and
+ * punctuation, in 50–60 ms. The model gives no scores for the candidates.
+ */
 class InkProbe(private val context: Context) {
     val log = ProbeLog("Ink")
     var modelReady by mutableStateOf(false)
@@ -31,6 +37,7 @@ class InkProbe(private val context: Context) {
     private val model = DigitalInkRecognitionModel.builder(DigitalInkRecognitionModelIdentifier.EL).build()
     private val manager = RemoteModelManager.getInstance()
     private var recognizer: DigitalInkRecognizer? = null
+    private var closed = false
 
     fun start() {
         val greek = DigitalInkRecognitionModelIdentifier.forLanguageSubtag("el")
@@ -89,11 +96,14 @@ class InkProbe(private val context: Context) {
     }
 
     fun close() {
+        closed = true
         recognizer?.close()
         recognizer = null
     }
 
     private fun onModelReady() {
+        // A download or a check may end after the screen has closed.
+        if (closed) return
         if (recognizer == null) {
             recognizer = DigitalInkRecognition.getClient(DigitalInkRecognizerOptions.builder(model).build())
         }

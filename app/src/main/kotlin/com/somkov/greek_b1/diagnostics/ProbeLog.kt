@@ -1,4 +1,4 @@
-package com.somkov.greek_b1.probe
+package com.somkov.greek_b1.diagnostics
 
 import android.os.Handler
 import android.os.Looper

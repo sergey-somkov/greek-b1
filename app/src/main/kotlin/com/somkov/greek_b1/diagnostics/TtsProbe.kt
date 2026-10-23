@@ -1,4 +1,4 @@
-package com.somkov.greek_b1.probe
+package com.somkov.greek_b1.diagnostics
 
 import android.content.Context
 import android.os.SystemClock
@@ -18,18 +18,28 @@ const val TTS_SAMPLE =
 /** A Greek voice and the engine instance that speaks it. */
 class ProbeVoice(val engine: String, val tts: TextToSpeech, val voice: Voice)
 
-/** Lists the TTS engines and their Greek voices, and speaks a sample sentence with each voice. */
+/**
+ * Lists the TTS engines and their Greek voices, and speaks a sample sentence with each voice.
+ *
+ * On the phone (2026-10) the app can use only Google's engine: Samsung TTS, the phone's default,
+ * is closed to other apps (see [start]). Google has one Greek voice, `el-gr-x-vfz`. Its `-local`
+ * variant works offline and starts at once; the `-network` variant took 850 ms on first use and
+ * sounds the same.
+ */
 class TtsProbe(private val context: Context) {
     val log = ProbeLog("TTS")
     val voices = mutableStateListOf<ProbeVoice>()
 
+    // Every instance from its creation, so that shutdown() also closes one that is still connecting.
     private val instances = mutableListOf<TextToSpeech>()
     private val utteranceStarts = mutableMapOf<String, Long>()
+    private var stopped = false
 
     fun start() {
         // An instance of the default engine, only to list the engines.
         lateinit var lister: TextToSpeech
         lister = TextToSpeech(context) { status ->
+            if (stopped) return@TextToSpeech
             if (status != TextToSpeech.SUCCESS) {
                 log.add("default engine failed to start: status $status")
                 return@TextToSpeech
@@ -44,21 +54,24 @@ class TtsProbe(private val context: Context) {
             val engines = lister.engines
             log.add("engines: ${engines.joinToString { "${it.name} (${it.label})" }}")
             lister.shutdown()
+            instances -= lister
             engines.forEach { openEngine(it.name) }
         }
+        instances += lister
     }
 
     private fun openEngine(engine: String) {
         lateinit var tts: TextToSpeech
         tts = TextToSpeech(context, { status ->
+            if (stopped) return@TextToSpeech
             if (status != TextToSpeech.SUCCESS) {
                 log.add("$engine: failed to start: status $status")
                 return@TextToSpeech
             }
-            instances += tts
             tts.setOnUtteranceProgressListener(progressListener(engine))
             reportEngine(engine, tts)
         }, engine)
+        instances += tts
     }
 
     private fun reportEngine(engine: String, tts: TextToSpeech) {
@@ -88,6 +101,7 @@ class TtsProbe(private val context: Context) {
     }
 
     fun shutdown() {
+        stopped = true
         instances.forEach { it.shutdown() }
         instances.clear()
     }

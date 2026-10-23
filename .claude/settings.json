@@ -56,6 +56,8 @@
       "Edit(.claude/settings.json)",
       "Edit(.claude/settings.local.json)",
       "Bash(adb *uninstall*)",
+      "Bash(*gradlew*uninstall*)",
+      "Bash(*tools/*uninstall*)",
       "Bash(adb *pm clear*)",
       "Bash(adb *pm disable*)",
       "Bash(adb * rm *)",

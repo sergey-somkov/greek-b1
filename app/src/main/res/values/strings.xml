@@ -1,4 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Greek B1</string>
+
+    <!-- The titles of the screens. Home has the app name as its title. -->
+    <string name="reading">Reading</string>
+    <string name="listening">Listening</string>
+    <string name="writing">Writing</string>
+    <string name="speaking">Speaking</string>
+    <string name="progress">Progress</string>
+    <string name="settings">Settings</string>
+    <string name="diagnostics">Diagnostics</string>
+
+    <!-- The settings. -->
+    <string name="diagnostics_summary">TTS voices, speech recognition, handwriting model</string>
+
+    <!-- The countdown on home. -->
+    <string name="countdown_registration">until the UCY registration opens</string>
+    <string name="countdown_registration_note">%1$s, Cyprus time</string>
+    <string name="countdown_exam">until the exam</string>
+    <!-- Until the exact date of the exam is known: the first day of the session. -->
+    <string name="countdown_exam_note">%1$s, the first day of the session</string>
+    <plurals name="days">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+
+    <string name="back">Back</string>
+    <string name="placeholder">Not built yet.</string>
 </resources>

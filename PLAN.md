@@ -15,6 +15,8 @@ The implementation plan of the MVP. See [README.md](README.md) for the purpose o
 
 For a story large enough to need review checkpoints, create a temporary `STORY.md` in the repository root and work from it. Delete it before the merge; first move anything worth keeping into DESIGN.md, PLAN.md or code comments.
 
+The last task of a story that changes the app raises `versionCode` (see [app/build.gradle.kts](app/build.gradle.kts)), so that the phone shows which version it runs.
+
 ```markdown
 # Story: <name>
 
@@ -60,9 +62,9 @@ Collect the official description of the exam and its sample papers. Write down, 
 
 ### 3. App skeleton
 - Branch: `story/app-skeleton`
-- Status: Not started
+- Status: Done
 
-The base structure of the app: Kotlin, Jetpack Compose, navigation between the main screens (home, the four parts, progress, settings), the Room database, the settings store, and the test setup. Scripts to build, install and run the tests from the command line. No learning features yet. The empty app of story 1 in `app/` grows into the skeleton, and its capability probe (package `probe`) becomes a diagnostics screen in the settings.
+The base structure of the app: Kotlin, Jetpack Compose, navigation between the main screens (home, the four parts, progress, settings), the Room database, and the test setup. Scripts to build, install and run the tests from the command line. No learning features yet. The empty app of story 1 in `app/` grows into the skeleton, and its capability probe (package `probe`) becomes a diagnostics screen in the settings.
 
 ### 4. Content format and pipeline
 - Branch: `story/content-pipeline`
@@ -74,7 +76,7 @@ The format of the learning content in the repository (texts, tasks, answers, dia
 - Branch: `story/progress-tracking`
 - Status: Not started
 
-Record every practice session: the start, the end, the part, the tasks done and their results. A daily goal in minutes. A progress screen: the time per day, the streak, the results per part over time, and the days left until the exam. This comes before the exercises so that every exercise is recorded from its first use.
+Record every practice session: the start, the end, the part, the tasks done and their results. A daily goal in minutes, the first setting of the app, which brings in the settings store. A progress screen: the time per day, the streak, the results per part over time, and the days left until the exam. This comes before the exercises so that every exercise is recorded from its first use.
 
 ### 6. Reading
 - Branch: `story/reading`
