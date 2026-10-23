@@ -1,0 +1,258 @@
+# The task types of the B1 exam, and the answer formats of the app.
+#
+# This file is the one source of these IDs and of their data; the tables of
+# docs/task-types.md show them. What each type is, the rules for its items and
+# the checks of the validator are in the prose of that document.
+#
+# An ID in use is never renamed and never reused: the user tables of the app
+# keep the results by ID. An entry that is no longer needed stays here with
+# `retired: true`.
+#
+# answer_formats: the input of the app for each format.
+#   id               the format, referred to by `answer` of a task type
+#   user_does        what the user does
+#   recorded_answer  what the user tables keep for the results
+#
+# task_types: in the order of the exam.
+#   id         <part>.<type>
+#   part       listening, reading, writing or speaking: the first part of the ID
+#   greek      the Greek name
+#   exam_slot  where the type is in the exam
+#   items      the counts of an item of the type, as the overview shows them
+#   points     the points, as the overview shows them
+#   answer     the ID of the answer format
+#   scored_by  who scores the answer, and how
+#   genres     writing only: the text types that an item can ask for
+#   kinds      speaking.roleplay only: the kinds of role play
+
+answer_formats:
+  - id: choice
+    retired: false
+    user_does: 'Picks one of a fixed set of options for each item: ΣΩΣΤΟ / ΛΑΘΟΣ, or α / β / γ.'
+    recorded_answer: The option of each item.
+
+  - id: assign
+    retired: false
+    user_does: >-
+      Matches each item to one entry of a list that has more entries than items; an entry is used at
+      most once.
+    recorded_answer: The entry of each item.
+
+  - id: grid
+    retired: false
+    user_does: >-
+      Ticks cells of a grid; the task states the total number of ticks, and the app accepts no more.
+    recorded_answer: The set of ticked cells.
+
+  - id: short_text
+    retired: false
+    user_does: Writes a short answer of a few words for each item.
+    recorded_answer: >-
+      The text of each item, the result of the match, and whether the user overrode it.
+
+  - id: text
+    retired: false
+    user_does: Writes a text, with the keyboard (story 10) or the S Pen (story 11).
+    recorded_answer: The text, the word count, the input method, the time taken.
+
+  - id: speech
+    retired: false
+    user_does: Speaks, after a question or a picture; one recording per prompt.
+    recorded_answer: The audio and the transcript with timing, per prompt.
+
+  - id: dialogue
+    retired: false
+    user_does: Speaks in turns with the app, which plays the partner.
+    recorded_answer: The turns of both sides, with the audio and the transcript of the user's turns.
+
+task_types:
+  - id: listening.notes
+    retired: false
+    part: listening
+    greek: Σημειώσεις
+    exam_slot: Listening, KEG task 1
+    items: 12 + example
+    points: '12'
+    answer: short_text
+    scored_by: App, key with matching rule
+
+  - id: listening.comparison
+    retired: false
+    part: listening
+    greek: Σύγκριση (συμπλήρωση πίνακα)
+    exam_slot: Listening, KEG task 2
+    items: 13 ticks + example
+    points: '13'
+    answer: grid
+    scored_by: App, key
+
+  - id: listening.true_false
+    retired: false
+    part: listening
+    greek: Σωστό/Λάθος
+    exam_slot: Listening, UCY only
+    items: 6–12 + example (Estimate)
+    points: 1 each
+    answer: choice
+    scored_by: App, key
+
+  - id: listening.gap_fill
+    retired: false
+    part: listening
+    greek: Συμπλήρωση κενών σε κείμενο
+    exam_slot: Listening, UCY only
+    items: 6–12 + example (Estimate)
+    points: 1 each
+    answer: short_text
+    scored_by: App, key with matching rule
+
+  - id: listening.multiple_choice
+    retired: false
+    part: listening
+    greek: Πολλαπλή επιλογή με 3 επιλογές
+    exam_slot: Listening, UCY only
+    items: 6–12 + example (Estimate)
+    points: 1 each
+    answer: choice
+    scored_by: App, key
+
+  - id: reading.matching
+    retired: false
+    part: reading
+    greek: Σύνδεση/Αντιστοίχιση προτάσεων/ενοτήτων
+    exam_slot: Reading, task 1
+    items: 6 + example, 3 distractors
+    points: '6'
+    answer: assign
+    scored_by: App, key
+
+  - id: reading.comparison
+    retired: false
+    part: reading
+    greek: Σύγκριση (συμπλήρωση πίνακα)
+    exam_slot: Reading, task 2
+    items: 12 ticks + example
+    points: 6 (0.5 each)
+    answer: grid
+    scored_by: App, key
+
+  - id: reading.true_false
+    retired: false
+    part: reading
+    greek: Σωστό/Λάθος
+    exam_slot: Reading, task 3
+    items: 6 + example
+    points: '6'
+    answer: choice
+    scored_by: App, key
+
+  - id: reading.gap_fill
+    retired: false
+    part: reading
+    greek: Συμπλήρωση κενών
+    exam_slot: Reading, task 4
+    items: 7 + example, 6 distractors
+    points: '7'
+    answer: assign
+    scored_by: App, key
+
+  - id: writing.informal
+    retired: false
+    part: writing
+    greek: 'Α΄ μέρος: φιλικό κείμενο'
+    exam_slot: Writing, part A
+    items: 1 text, 150 words
+    points: '12'
+    answer: text
+    scored_by: LLM, writing scale
+    genres:
+      - id: friendly_letter
+        retired: false
+        greek: φιλική επιστολή
+        example: >-
+          A letter or an email to a friend: news, advice, an invitation, persuading them to join
+          something.
+      - id: announcement
+        retired: false
+        greek: εκτεταμένη ανακοίνωση
+        example: >-
+          A notice for neighbors, classmates or a club: an event, a change, a call for help.
+      - id: advertisement
+        retired: false
+        greek: εκτεταμένη διαφήμιση
+        example: 'A small ad: something to sell, a room to rent, a lost pet, lessons offered.'
+
+  - id: writing.formal
+    retired: false
+    part: writing
+    greek: 'Β΄ μέρος: τυπικό κείμενο'
+    exam_slot: Writing, part B
+    items: 1 text, 150 words
+    points: '13'
+    answer: text
+    scored_by: LLM, writing scale
+    genres:
+      - id: formal_letter
+        retired: false
+        greek: τυπική επιστολή
+        example: >-
+          A letter or an email to an organization or an official: a reasoned complaint, a reasoned
+          request for leave, a request for information, giving personal or other information, an
+          application.
+      - id: article
+        retired: false
+        greek: άρθρο
+        example: A short article for a magazine or a website that informs or advises on a topic.
+
+  - id: speaking.interview
+    retired: false
+    part: speaking
+    greek: 'Α΄ μέρος: απλές ερωτήσεις'
+    exam_slot: Speaking, part A
+    items: 6–8 questions
+    points: —
+    answer: speech
+    scored_by: LLM, speaking criteria
+
+  - id: speaking.opinion
+    retired: false
+    part: speaking
+    greek: 'Β΄ μέρος: σύντομος μονόλογος'
+    exam_slot: Speaking, part B, first half
+    items: 1 question
+    points: —
+    answer: speech
+    scored_by: LLM, speaking criteria
+
+  - id: speaking.picture
+    retired: false
+    part: speaking
+    greek: 'Β΄ μέρος: φωτογραφία'
+    exam_slot: Speaking, part B, second half
+    items: 1 picture
+    points: —
+    answer: speech
+    scored_by: LLM, speaking criteria
+
+  - id: speaking.roleplay
+    retired: false
+    part: speaking
+    greek: 'Γ΄ μέρος: παιχνίδι ρόλων'
+    exam_slot: Speaking, part C
+    items: 2 role cards
+    points: —
+    answer: dialogue
+    scored_by: LLM, speaking criteria
+    kinds:
+      - id: disagreement
+        retired: false
+        meaning: Friends, relatives or colleagues argue out a choice. The most common kind.
+      - id: service
+        retired: false
+        meaning: A customer and a clerk or a shop assistant who recommends something else.
+      - id: information
+        retired: false
+        meaning: A request for information at a service.
+      - id: planning
+        retired: false
+        meaning: Two people plan something together.

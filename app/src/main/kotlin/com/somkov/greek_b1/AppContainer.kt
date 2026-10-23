@@ -1,6 +1,7 @@
 package com.somkov.greek_b1
 
 import android.content.Context
+import com.somkov.greek_b1.content.ContentLoader
 import com.somkov.greek_b1.data.AppDatabase
 
 /**
@@ -12,4 +13,6 @@ import com.somkov.greek_b1.data.AppDatabase
 class AppContainer(context: Context) {
     /** Built at the start of the app, but the file is opened on the first query. */
     val database: AppDatabase = AppDatabase.build(context)
+
+    val contentLoader: ContentLoader = ContentLoader.fromAssets(database, context.assets)
 }

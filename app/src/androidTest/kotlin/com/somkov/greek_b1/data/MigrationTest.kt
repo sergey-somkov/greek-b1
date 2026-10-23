@@ -4,8 +4,10 @@ import androidx.room3.testing.MigrationTestHelper
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import androidx.sqlite.execSQL
 import androidx.test.platform.app.InstrumentationRegistry
+import com.somkov.greek_b1.content.ContentItem
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertThrows
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -39,12 +41,22 @@ class MigrationTest {
 
     @Test
     fun `a new database keeps its data after a reopen`() = runBlocking<Unit> {
+        val item = ContentItem(
+            id = "reading.true_false.001",
+            part = "reading",
+            taskType = "reading.true_false",
+            situation = "personal.details",
+            topic = "personal",
+            title = "Kept",
+            retired = false,
+            body = "{}",
+        )
         AppDatabase.build(context, NAME).apply {
-            placeholderDao().insert(Placeholder(1, "kept"))
+            contentDao().insertItems(listOf(item))
             close()
         }
         AppDatabase.build(context, NAME).apply {
-            assertEquals(Placeholder(1, "kept"), placeholderDao().get(1))
+            assertEquals(item, contentDao().item(item.id))
             close()
         }
     }
@@ -59,21 +71,38 @@ class MigrationTest {
     }
 
     @Test
+    fun `version 1 loses the placeholder table`() = runBlocking<Unit> {
+        helper.createDatabase(1).apply {
+            execSQL("INSERT INTO placeholder (id, text) VALUES (1, 'dropped')")
+            close()
+        }
+        helper.runMigrationsAndValidate(AppDatabase.VERSION, MIGRATIONS).use { connection ->
+            val query = "SELECT name FROM sqlite_master WHERE name = 'placeholder'"
+            connection.prepare(query).use { statement ->
+                assertFalse(statement.step())
+            }
+        }
+    }
+
+    @Test
     fun `a database without a migration fails to open and keeps its data`() = runBlocking<Unit> {
         // A version the app has no migration from: a newer one, as after a downgrade.
         helper.createDatabase(AppDatabase.VERSION).apply {
-            execSQL("INSERT INTO placeholder (id, text) VALUES (1, 'kept')")
+            execSQL(
+                "INSERT INTO catalog_topic (id, name, greek, retired) VALUES ('personal', 'kept', '', 0)",
+            )
             execSQL("PRAGMA user_version = ${AppDatabase.VERSION + 1}")
             close()
         }
         val database = AppDatabase.build(context, NAME)
         assertThrows(IllegalStateException::class.java) {
-            runBlocking { database.placeholderDao().get(1) }
+            runBlocking { database.contentDao().item("reading.true_false.001") }
         }
         database.close()
 
         AndroidSQLiteDriver().open(file.path).use { connection ->
-            connection.prepare("SELECT text FROM placeholder WHERE id = 1").use { statement ->
+            val query = "SELECT name FROM catalog_topic WHERE id = 'personal'"
+            connection.prepare(query).use { statement ->
                 assertTrue(statement.step())
                 assertEquals("kept", statement.getText(0))
             }

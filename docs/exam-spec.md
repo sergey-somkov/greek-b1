@@ -71,8 +71,8 @@ UCY lists five task types, but KEG uses only two of them at B1, and both KEG sam
 | Items | 12 + the example | KEG ([keg-structure]) |
 | Points | 12, 1 per item | KEG ([keg-structure]) |
 | Text | Friendly or informative monologue, a narration of events, an extract from an interview or from a literary work; about 300 words. | KEG ([keg-structure]) |
-| Sample texts | An author reads from his book about his grandfather's life (A, 280 words); a radio programme about Arcturos, a project that protects bears (B, 310 words). | Samples ([keg-a-listening], [keg-b-listening]) |
-| Answer | A form of 12 labelled lines in the order of the text; the candidate writes a short note of 1–3 words (A) or 1–4 words (B). | Samples |
+| Sample texts | An author reads from his book about his grandfather's life (A, 280 words); a radio program about Arcturos, a project that protects bears (B, 310 words). | Samples ([keg-a-listening], [keg-b-listening]) |
+| Answer | A form of 12 labeled lines in the order of the text; the candidate writes a short note of 1–3 words (A) or 1–4 words (B). | Samples |
 | What is asked | Facts: years, ages, numbers, places, jobs, short phrases ("Ηλικία του παππού, όταν ήρθε στην πόλη: 12 χρονών"). | Samples |
 | Accepted answers | The key lists alternatives where the text allows them ("ορεινό / σ' ένα βουνό της Πελοποννήσου", "πήγαν σχολείο / σπούδασαν"). | Samples |
 
@@ -83,8 +83,8 @@ UCY lists five task types, but KEG uses only two of them at B1, and both KEG sam
 | Items | 13 ticks + the example | KEG ([keg-structure]) |
 | Points | 13, 1 per tick | KEG ([keg-structure]) |
 | Text | A fairly formal dialogue, a discussion between 2–3 people; 350–400 words. | KEG ([keg-structure]) |
-| Sample texts | A radio discussion with two members of environmental organisations (A, 385 words); four job interviews (B, about 310 words). | Samples ([keg-a-listening], [keg-b-listening]) |
-| Answer | A grid with one column per person or organisation (2 in A, 4 in B) and one row per statement (11 in A, 6 in B). The candidate ticks every column that the statement fits. Some statements fit more than one column. The instructions give the total number of ticks. | Samples |
+| Sample texts | A radio discussion with two members of environmental organizations (A, 385 words); four job interviews (B, about 310 words). | Samples ([keg-a-listening], [keg-b-listening]) |
+| Answer | A grid with one column per person or organization (2 in A, 4 in B) and one row per statement (11 in A, 6 in B). The candidate ticks every column that the statement fits. Some statements fit more than one column. The instructions give the total number of ticks. | Samples |
 
 ### True/false, gap fill and multiple choice
 
@@ -135,7 +135,7 @@ Items and points: unknown.
 | Items | 6 + the example | KEG ([keg-structure]) |
 | Points | 6, 1 per item | KEG ([keg-structure]) |
 | Text | Less formal: an extract from a narrative or from a literary work; 180–200 words. | UCY for the type ([ucy-structure]); length KEG ([keg-structure]) |
-| Sample texts | Ancient Greek theatre, from the introduction of a school textbook (A, 209 words); an extract from a novel, Ζωρζ Σαρρή «Όταν ο ήλιος» (B, about 170 words). | Samples ([keg-a-reading], [keg-b-reading]) |
+| Sample texts | Ancient Greek theater, from the introduction of a school textbook (A, 209 words); an extract from a novel, Ζωρζ Σαρρή «Όταν ο ήλιος» (B, about 170 words). | Samples ([keg-a-reading], [keg-b-reading]) |
 | Answer | A tick under ΣΩΣΤΟ (agrees with the text) or ΛΑΘΟΣ (does not). There is no "not given" option. | Samples |
 | False statements | They change a detail of the text (once a year instead of four times; barefoot instead of high shoes) or draw a wrong conclusion from it (no female roles, because only men acted). | Samples |
 
@@ -197,13 +197,13 @@ From the samples ([keg-a-writing], [keg-b-writing]):
 ### Part A: simple questions (Α΄ μέρος)
 
 - **Content:** simple questions about name, residence, school or work, family, hobbies (UCY: [ucy-structure]); a warm-up (KEG: [keg-structure]).
-- **Samples:** 7–8 questions that the examiner asks each candidate: name, where you live, school or work, free time, whether you have visited Greece and have friends there, other languages, favourite food ([keg-a-speaking], [keg-b-speaking]).
+- **Samples:** 7–8 questions that the examiner asks each candidate: name, where you live, school or work, free time, whether you have visited Greece and have friends there, other languages, favorite food ([keg-a-speaking], [keg-b-speaking]).
 
 ### Part B: a short monologue (Β΄ μέρος)
 
 - **Content:** a short monologue in continuous speech, more demanding than at the lower levels. If photos are given, the candidate is asked about the feelings that the photo shows and gives reasons (UCY: [ucy-structure]).
 - **Two halves** (KEG: [keg-speaking-instr]): each candidate answers (a) one question that asks for a short developed answer, and (b) questions about a picture, a different one for each candidate.
-- **The opinion question** asks for a view with reasons. Samples: is TV good or bad for children; shopping centres or small shops; how to protect the environment; how to prevent forest fires; do you recycle; does the climate shape character; do schools teach enough; does music affect mood; the good and bad sides of the internet; how to keep good relations with others; how to reduce litter ([keg-a-speaking], [keg-b-speaking]).
+- **The opinion question** asks for a view with reasons. Samples: is TV good or bad for children; shopping centers or small shops; how to protect the environment; how to prevent forest fires; do you recycle; does the climate shape character; do schools teach enough; does music affect mood; the good and bad sides of the internet; how to keep good relations with others; how to reduce litter ([keg-a-speaking], [keg-b-speaking]).
 - **The picture:** the candidate looks at it for 1 min and then describes it. The examiner's sheet has follow-up questions: what you see, where the people are and how they feel, then personal questions on the topic (news and journalism, computers at school, gym and health, TV). The examiner may ask helping questions when the candidate gets stuck (Samples).
 
 ### Part C: role play (Γ΄ μέρος)
@@ -259,7 +259,7 @@ The fallback is the KEG B1 certificate ([README.md](../README.md#the-exam)). The
 | Pen | Blue ink only | Blue or black; pencil for the rough work and, from October 2026, for the answer sheet ([keg-guide] p. 23, [keg-sheet-notice]) |
 | Arrival | 45 min before the listening | 15 min before; nobody enters after the listening has started ([keg-guide] p. 23) |
 | Result | Score 0–100 on the certificate | Pass or fail for each part; the certificate gives only Καλώς, Λίαν καλώς or Άριστα, whose bands are not published ([keg-guide] p. 22) |
-| Sessions | September and January, Nicosia only ([ucy-info]) | Every May, in Greece and abroad; a second session in October for B1, in Greece only ([keg-guide] p. 11, [keg-dates]). In Cyprus the Ministry of Education's Examination Service runs it (centre code 35703) on its own dates: B1 on Saturday 30 May in 2026 ([moec-2026]). |
+| Sessions | September and January, Nicosia only ([ucy-info]) | Every May, in Greece and abroad; a second session in October for B1, in Greece only ([keg-guide] p. 11, [keg-dates]). In Cyprus the Ministry of Education's Examination Service runs it (center code 35703) on its own dates: B1 on Saturday 30 May in 2026 ([moec-2026]). |
 | Registration | From 2 months to 1 month before the session, or until the places run out ([ucy-info]) | 1 February – 14 March for May 2027 ([keg-dates]); the Cyprus exam dates for 2027 are not announced yet |
 | Results | Within 2 months ([ucy-info]; 2.5 months in [ucy-regs] C.4) | At the end of July (31 July in 2026, [keg-news]); certificates by the end of September ([keg-guide] p. 22) |
 | Recognition for naturalization in Cyprus | Yes ([ucy-info]) | Yes: the Ministry of the Interior's information sheet names the KEG exams, as quoted by a law firm ([grata]); the ministry's own PDF returned 404 on 2026-10-23. |

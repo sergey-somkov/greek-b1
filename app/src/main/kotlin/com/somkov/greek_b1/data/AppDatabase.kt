@@ -1,10 +1,19 @@
 package com.somkov.greek_b1.data
 
 import android.content.Context
+import androidx.room3.AutoMigration
 import androidx.room3.Database
 import androidx.room3.Room
 import androidx.room3.RoomDatabase
 import androidx.sqlite.driver.AndroidSQLiteDriver
+import com.somkov.greek_b1.content.CatalogCriterion
+import com.somkov.greek_b1.content.CatalogFunction
+import com.somkov.greek_b1.content.CatalogSituation
+import com.somkov.greek_b1.content.CatalogTaskType
+import com.somkov.greek_b1.content.CatalogTopic
+import com.somkov.greek_b1.content.ContentDao
+import com.somkov.greek_b1.content.ContentItem
+import com.somkov.greek_b1.content.ContentVersion
 
 /**
  * The app's database: the content tables (story 4) and the user tables with the progress data
@@ -13,13 +22,25 @@ import androidx.sqlite.driver.AndroidSQLiteDriver
  * Room 3 (`androidx.room3`), the latest stable line, rather than Room 2: KSP only, suspending
  * DAOs and a `SQLiteDriver`. Starting on Room 2 would mean a migration of every DAO later.
  */
-@Database(entities = [Placeholder::class], version = AppDatabase.VERSION)
+@Database(
+    entities = [
+        ContentItem::class,
+        CatalogTaskType::class,
+        CatalogTopic::class,
+        CatalogSituation::class,
+        CatalogFunction::class,
+        CatalogCriterion::class,
+        ContentVersion::class,
+    ],
+    version = AppDatabase.VERSION,
+    autoMigrations = [AutoMigration(from = 1, to = 2, spec = DropPlaceholder::class)],
+)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun placeholderDao(): PlaceholderDao
+    abstract fun contentDao(): ContentDao
 
     companion object {
         /** The version of the schema. Raised with every change of the schema, see [MIGRATIONS]. */
-        const val VERSION = 1
+        const val VERSION = 2
 
         const val FILE_NAME = "greek-b1.db"
 

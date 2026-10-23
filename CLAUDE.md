@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Language
 
-All text produced for this project (code, comments, commit messages, documentation, etc.) must be in plain technical English, regardless of the language the conversation with the user is conducted in.
+All text produced for this project (code, comments, commit messages, documentation, etc.) must be in plain technical English with American spelling (organize, center, color, program), regardless of the language the conversation with the user is conducted in.
 
 ## Git
 

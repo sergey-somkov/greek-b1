@@ -1,0 +1,197 @@
+# The assessment criteria of writing and speaking, with their descriptors.
+#
+# This file is the one source of these IDs and of their data; the tables of
+# docs/assessment-criteria.md show them. The scales, the rules that cap the
+# score and the procedure for the LLM are in the prose of that document.
+#
+# The IDs are unique within a part: `grammar` and `vocabulary` are criteria of
+# both writing and speaking, with different descriptors. An ID in use is never
+# renamed and never reused: the assessments of the app keep the values by ID.
+# An entry that is no longer needed stays here with `retired: true`.
+#
+# writing: the six aspects of the KEG writing scale, each rated 1-5.
+#   id      the criterion
+#   name    the English name
+#   greek   the Greek terms of the scale
+#   covers  what the criterion covers
+#   bands   the descriptor of each band, 1-5; band N covers the points
+#           5N-4 to 5N of the 25-point scale
+#
+# speaking: the five KEG speaking criteria, each rated 1-5.
+#   id      the criterion
+#   name    the English name
+#   greek   the Greek name
+#   covers  what the criterion covers
+#   points  the descriptor for 1 point, for 2-3 points and for 4-5 points
+
+writing:
+  - id: task
+    retired: false
+    name: Content and task
+    greek: θεματικό κέντρο, ανάπτυξη του θέματος, αριθμός λέξεων
+    covers: >-
+      The text is on the topic of the task, covers all the points it asks for, develops them, and
+      has the required length.
+    bands:
+      1: The content has nothing to do with the topic.
+      2: >-
+        The content is related to the topic, though the link is hard to see; the ideas are not
+        developed at all.
+      3: >-
+        The main point is partly clear; the development is limited or weak in some respects, but
+        acceptable. The text is fairly long but somewhat short of the required number of words.
+      4: >-
+        The main idea is very clear, but some aspects are not developed enough, so the content does
+        not use all that the topic offers.
+      5: The main point is clear, and the arguments on the topic are fully developed.
+
+  - id: organization
+    retired: false
+    name: Organization and cohesion
+    greek: >-
+      οργάνωση, παραγραφοποίηση, συνοχή, συνεκτικότητα, μεταβατικοί μηχανισμοί, αλληλουχία νοημάτων
+    covers: Paragraphs, the order of the ideas, connectors and other links between sentences.
+    bands:
+      1: 'No organization: sentences and phrases in no order; no sequence of ideas.'
+      2: Poorly organized, with many errors in paragraphing; neither cohesion nor coherence.
+      3: >-
+        The organization is visible, though cohesion or coherence fails in places. Paragraphing is
+        attempted, not always with success.
+      4: >-
+        Fairly well organized, with correct paragraphing and the successful use of some linking
+        devices, basic ones for the level.
+      5: >-
+        Faultless organization; the linking devices hold the text together very well; an excellent
+        sequence of ideas.
+
+  - id: register
+    retired: false
+    name: Register
+    greek: ύφος (τυπικό, φιλικό)
+    covers: >-
+      Formal or friendly style as the task needs: salutation, forms of address (εσύ / εσείς), set
+      phrases of the text type, closing.
+    bands:
+      1: No difference between formal and friendly style.
+      2: A few changes of style, mostly unsuccessful.
+      3: >-
+        The style fits only where a familiar style is needed: the friendly text works, the formal
+        one does not.
+      4: The right style in a good number of places.
+      5: The best-fitting choices of style.
+
+  - id: vocabulary
+    retired: false
+    name: Vocabulary
+    greek: λεξιλόγιο, ολοφράσεις
+    covers: >-
+      Range, accuracy and fitness of the words; the set phrases (ολοφράσεις) expected for the text
+      type.
+    bands:
+      1: Extremely poor, with very many errors.
+      2: Very poor, and fairly often wrong or unfit.
+      3: >-
+        Correct, but very limited in range and often repeated. The set phrases of the text type are
+        attempted, clearly without success.
+      4: >-
+        Good, though not excellent; frequent use of the vocabulary specific to the topic; few
+        errors.
+      5: Very precise use of the vocabulary of the level.
+
+  - id: grammar
+    retired: false
+    name: Grammar
+    greek: μορφοσυντακτικά λάθη, γλωσσικές δομές
+    covers: >-
+      Morphology and syntax: forms of nouns and verbs, agreement, the structures of the level.
+    bands:
+      1: So many errors of morphology and syntax that the message does not get across.
+      2: Very many errors of morphology and syntax.
+      3: >-
+        Many errors that are not negligible, though the text attempts structures that are complex
+        for the level; only some of the errors are serious.
+      4: The structures of the level are used effectively, but not always accurately.
+      5: The structures are correct and, though simple, cover all that is taught at the level.
+
+  - id: mechanics
+    retired: false
+    name: Spelling, accents and punctuation
+    greek: ορθογραφία, τονισμός, στίξη, κεφαλαιογράμματη γραφή
+    covers: Spelling, the accent marks, punctuation; writing in capitals only.
+    bands:
+      1: >-
+        Very many spelling errors; no punctuation; words divided wrongly; written in capitals;
+        accent marks missing or wrong.
+      2: Spelling errors make the text hard to understand; punctuation and accents are very weak.
+      3: >-
+        Spelling, accent and punctuation errors, which together with the grammar errors can get in
+        the way of understanding.
+      4: Very few spelling, accent and punctuation errors, none of them serious.
+      5: No spelling errors; faultless accents; the punctuation serves the text.
+
+speaking:
+  - id: grammar
+    retired: false
+    name: Grammatical accuracy
+    greek: Γραμματική ακρίβεια (μορφολογία, σύνταξη)
+    covers: >-
+      Morphology and syntax. The KEG heading also names spelling and punctuation; the grid is shared
+      with writing, and they do not apply to speech.
+    points:
+      '1': >-
+        Very limited use of structures; many inaccuracies, or the needed forms and syntax are not
+        known.
+      '2-3': >-
+        The structures of the level are used well enough; some inaccuracies, which hardly affect
+        communication.
+      '4-5': The structures needed are used fully effectively.
+
+  - id: pragmatics
+    retired: false
+    name: Pragmatic appropriateness
+    greek: Πραγματολογική καταλληλότητα (περιεχόμενο, είδος, ύφος)
+    covers: The content and its organization, fitness to the kind of talk, register (εσύ / εσείς).
+    points:
+      '1': Content poorly presented or organized, and/or almost no fitting style.
+      '2-3': Content of the talk adequately organized and presented; limited use of fitting style.
+      '4-5': Content very effectively organized and presented; style fits the topic.
+
+  - id: pronunciation
+    retired: false
+    name: Pronunciation and intonation
+    greek: Προφορά και επιτονισμός
+    covers: Sounds, word stress, intonation, flow of speech.
+    points:
+      '1': >-
+        Unnatural flow; strong and frequent features of the native language's pronunciation that
+        hinder understanding at once.
+      '2-3': >-
+        Frequent weaknesses of pronunciation from the native or another foreign language; the flow
+        is not always normal.
+      '4-5': Very good use of sounds and prosody.
+
+  - id: vocabulary
+    retired: false
+    name: Vocabulary
+    greek: Λεξιλόγιο (εύρος, επιλογή)
+    covers: Range and choice of words.
+    points:
+      '1': Very limited vocabulary; many wrong words; frequent repetition.
+      '2-3': >-
+        Words chosen and used fairly well, with few errors that do not seriously affect
+        communication; a satisfactory range.
+      '4-5': Fully satisfactory knowledge and use of the vocabulary needed.
+
+  - id: communication
+    retired: false
+    name: Communicative effectiveness, completing the task
+    greek: Αποτελεσματικότητα στην επικοινωνία / ολοκλήρωση του θέματος
+    covers: Answers what is asked, completes the task, keeps the talk going; fluency.
+    points:
+      '1': >-
+        Cannot complete the task; wrong elements make understanding impossible; a serious lack of
+        fluency.
+      '2-3': >-
+        Satisfactory communication with the minimum content needed; anything irrelevant hardly
+        affects communication.
+      '4-5': Responds to the task very effectively.

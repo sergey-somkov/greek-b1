@@ -1,0 +1,30 @@
+# The Python scripts in tools/: their dependencies and the settings of the tools.
+# Not a package: nothing here is built or installed, only the dependencies are.
+#
+# The dependencies live in a virtual environment in the repository root, not in git.
+# Set it up, or update it after a change of the versions below:
+#   python3 -m venv .venv
+#   .venv/bin/pip install --upgrade pip      # --group needs pip 25.1 or later
+#   .venv/bin/pip install --group dev
+#
+# The tests: .venv/bin/pytest; the type check: .venv/bin/pyright
+
+[dependency-groups]
+dev = [
+    "pydantic==2.14.1",
+    "pyright==1.1.414",
+    "pytest==9.1.1",
+    "ruamel.yaml==0.19.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tools/tests"]
+pythonpath = ["tools"]
+
+[tool.pyright]
+include = ["tools"]
+extraPaths = ["tools"]
+venvPath = "."
+venv = ".venv"
+pythonVersion = "3.12"
+typeCheckingMode = "standard"

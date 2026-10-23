@@ -2,6 +2,8 @@
 
 How each part of the UCY B1 exam is scored: the item scoring of reading and listening, and the criteria, weights and band descriptors of writing and speaking. The parts and tasks themselves are in [exam-spec.md](exam-spec.md). This document is the reference for the automatic scoring of reading and listening (stories 6, 7) and for the assessment prompts of the LLM (story 9).
 
+The IDs and the data of the tables of the writing and speaking criteria and of their descriptors come from [content/catalog/criteria.yaml](../content/catalog/criteria.yaml), their one source. `tools/content.py docs` writes each table between its `<!-- catalog: … -->` markers; change the catalog and run it, never the tables. The rest of this document is written by hand.
+
 ## How to read this document
 
 UCY publishes no assessment criteria (see [docs/sources/README.md](sources/README.md)). KEG publishes a holistic scale for B1 writing ([keg-writing]), five analytic criteria and a holistic scale for B1 speaking ([keg-speaking]), and the points per item for reading and listening ([keg-structure]). The UCY task design is the KEG one (see [exam-spec.md](exam-spec.md#how-to-read-this-document)), so the KEG criteria are used.
@@ -70,7 +72,7 @@ The notes are the only open answers. The rules of the key, from the samples ([ke
 
 What else counts as right is not published. KEG says only that spelling counts little at the lower levels, but fully phonetic spelling is not accepted ([keg-guide] p. 26). The app's rule (Estimate):
 
-1. Normalise both sides: small letters, single spaces, no punctuation around the answer, the optional words of the key dropped or kept.
+1. Normalize both sides: small letters, single spaces, no punctuation around the answer, the optional words of the key dropped or kept.
 2. **Right** if it equals one of the alternatives of the key. Numbers count in digits or in words ("12" = "δώδεκα").
 3. **Right, with a spelling note** if it differs from an alternative only in the accent marks, or by at most 1 letter in a word of up to 6 letters and 2 letters in a longer word.
 4. **Wrong** otherwise. The app shows the key, and the user can mark the answer as right when it says the same in other words; the result keeps that the user overrode it. When online, the LLM can be asked instead, with the transcript and the key (story 7 decides).
@@ -102,25 +104,31 @@ UCY part A is an informal text (a friendly letter, an announcement, an advertise
 
 The KEG scale describes each band in one paragraph that covers six aspects. The app rates each aspect on its own (1–5, one value per band), to give feedback per criterion, and then gives the holistic score. The aspects are taken from the scale; the split is ours (Derived).
 
+<!-- catalog: writing_criteria -->
+
 | ID | Criterion | Greek terms of the scale | What it covers |
 |---|---|---|---|
 | `task` | Content and task | θεματικό κέντρο, ανάπτυξη του θέματος, αριθμός λέξεων | The text is on the topic of the task, covers all the points it asks for, develops them, and has the required length. |
-| `organisation` | Organisation and cohesion | οργάνωση, παραγραφοποίηση, συνοχή, συνεκτικότητα, μεταβατικοί μηχανισμοί, αλληλουχία νοημάτων | Paragraphs, the order of the ideas, connectors and other links between sentences. |
+| `organization` | Organization and cohesion | οργάνωση, παραγραφοποίηση, συνοχή, συνεκτικότητα, μεταβατικοί μηχανισμοί, αλληλουχία νοημάτων | Paragraphs, the order of the ideas, connectors and other links between sentences. |
 | `register` | Register | ύφος (τυπικό, φιλικό) | Formal or friendly style as the task needs: salutation, forms of address (εσύ / εσείς), set phrases of the text type, closing. |
 | `vocabulary` | Vocabulary | λεξιλόγιο, ολοφράσεις | Range, accuracy and fitness of the words; the set phrases (ολοφράσεις) expected for the text type. |
 | `grammar` | Grammar | μορφοσυντακτικά λάθη, γλωσσικές δομές | Morphology and syntax: forms of nouns and verbs, agreement, the structures of the level. |
 | `mechanics` | Spelling, accents and punctuation | ορθογραφία, τονισμός, στίξη, κεφαλαιογράμματη γραφή | Spelling, the accent marks, punctuation; writing in capitals only. |
 
+<!-- /catalog -->
+
 ### Band descriptors
 
 Our rendering of the KEG B1 writing scale ([keg-writing]), split by criterion (Derived). Each band applies to the points shown.
+
+<!-- catalog: writing_bands -->
 
 **Band 1 (1–5 points)**
 
 | Criterion | Descriptor |
 |---|---|
 | `task` | The content has nothing to do with the topic. |
-| `organisation` | No organisation: sentences and phrases in no order; no sequence of ideas. |
+| `organization` | No organization: sentences and phrases in no order; no sequence of ideas. |
 | `register` | No difference between formal and friendly style. |
 | `vocabulary` | Extremely poor, with very many errors. |
 | `grammar` | So many errors of morphology and syntax that the message does not get across. |
@@ -131,7 +139,7 @@ Our rendering of the KEG B1 writing scale ([keg-writing]), split by criterion (D
 | Criterion | Descriptor |
 |---|---|
 | `task` | The content is related to the topic, though the link is hard to see; the ideas are not developed at all. |
-| `organisation` | Poorly organised, with many errors in paragraphing; neither cohesion nor coherence. |
+| `organization` | Poorly organized, with many errors in paragraphing; neither cohesion nor coherence. |
 | `register` | A few changes of style, mostly unsuccessful. |
 | `vocabulary` | Very poor, and fairly often wrong or unfit. |
 | `grammar` | Very many errors of morphology and syntax. |
@@ -142,7 +150,7 @@ Our rendering of the KEG B1 writing scale ([keg-writing]), split by criterion (D
 | Criterion | Descriptor |
 |---|---|
 | `task` | The main point is partly clear; the development is limited or weak in some respects, but acceptable. The text is fairly long but somewhat short of the required number of words. |
-| `organisation` | The organisation is visible, though cohesion or coherence fails in places. Paragraphing is attempted, not always with success. |
+| `organization` | The organization is visible, though cohesion or coherence fails in places. Paragraphing is attempted, not always with success. |
 | `register` | The style fits only where a familiar style is needed: the friendly text works, the formal one does not. |
 | `vocabulary` | Correct, but very limited in range and often repeated. The set phrases of the text type are attempted, clearly without success. |
 | `grammar` | Many errors that are not negligible, though the text attempts structures that are complex for the level; only some of the errors are serious. |
@@ -153,7 +161,7 @@ Our rendering of the KEG B1 writing scale ([keg-writing]), split by criterion (D
 | Criterion | Descriptor |
 |---|---|
 | `task` | The main idea is very clear, but some aspects are not developed enough, so the content does not use all that the topic offers. |
-| `organisation` | Fairly well organised, with correct paragraphing and the successful use of some linking devices, basic ones for the level. |
+| `organization` | Fairly well organized, with correct paragraphing and the successful use of some linking devices, basic ones for the level. |
 | `register` | The right style in a good number of places. |
 | `vocabulary` | Good, though not excellent; frequent use of the vocabulary specific to the topic; few errors. |
 | `grammar` | The structures of the level are used effectively, but not always accurately. |
@@ -164,11 +172,13 @@ Our rendering of the KEG B1 writing scale ([keg-writing]), split by criterion (D
 | Criterion | Descriptor |
 |---|---|
 | `task` | The main point is clear, and the arguments on the topic are fully developed. |
-| `organisation` | Faultless organisation; the linking devices hold the text together very well; an excellent sequence of ideas. |
+| `organization` | Faultless organization; the linking devices hold the text together very well; an excellent sequence of ideas. |
 | `register` | The best-fitting choices of style. |
 | `vocabulary` | Very precise use of the vocabulary of the level. |
 | `grammar` | The structures are correct and, though simple, cover all that is taught at the level. |
 | `mechanics` | No spelling errors; faultless accents; the punctuation serves the text. |
+
+<!-- /catalog -->
 
 ### What the level expects
 
@@ -206,25 +216,33 @@ The KEG scale names the language that a B1 text is measured against ([keg-writin
 
 ### Criteria
 
+<!-- catalog: speaking_criteria -->
+
 | ID | Criterion | Greek name | What it covers |
 |---|---|---|---|
 | `grammar` | Grammatical accuracy | Γραμματική ακρίβεια (μορφολογία, σύνταξη) | Morphology and syntax. The KEG heading also names spelling and punctuation; the grid is shared with writing, and they do not apply to speech. |
-| `pragmatics` | Pragmatic appropriateness | Πραγματολογική καταλληλότητα (περιεχόμενο, είδος, ύφος) | The content and its organisation, fitness to the kind of talk, register (εσύ / εσείς). |
+| `pragmatics` | Pragmatic appropriateness | Πραγματολογική καταλληλότητα (περιεχόμενο, είδος, ύφος) | The content and its organization, fitness to the kind of talk, register (εσύ / εσείς). |
 | `pronunciation` | Pronunciation and intonation | Προφορά και επιτονισμός | Sounds, word stress, intonation, flow of speech. |
 | `vocabulary` | Vocabulary | Λεξιλόγιο (εύρος, επιλογή) | Range and choice of words. |
 | `communication` | Communicative effectiveness, completing the task | Αποτελεσματικότητα στην επικοινωνία / ολοκλήρωση του θέματος | Answers what is asked, completes the task, keeps the talk going; fluency. |
+
+<!-- /catalog -->
 
 ### Descriptors per criterion
 
 KEG describes three levels for each criterion: 1 point, 2–3 points and 4–5 points ([keg-speaking], our rendering):
 
+<!-- catalog: speaking_points -->
+
 | Criterion | 1 point | 2–3 points | 4–5 points |
 |---|---|---|---|
 | `grammar` | Very limited use of structures; many inaccuracies, or the needed forms and syntax are not known. | The structures of the level are used well enough; some inaccuracies, which hardly affect communication. | The structures needed are used fully effectively. |
-| `pragmatics` | Content poorly presented or organised, and/or almost no fitting style. | Content of the talk adequately organised and presented; limited use of fitting style. | Content very effectively organised and presented; style fits the topic. |
+| `pragmatics` | Content poorly presented or organized, and/or almost no fitting style. | Content of the talk adequately organized and presented; limited use of fitting style. | Content very effectively organized and presented; style fits the topic. |
 | `pronunciation` | Unnatural flow; strong and frequent features of the native language's pronunciation that hinder understanding at once. | Frequent weaknesses of pronunciation from the native or another foreign language; the flow is not always normal. | Very good use of sounds and prosody. |
 | `vocabulary` | Very limited vocabulary; many wrong words; frequent repetition. | Words chosen and used fairly well, with few errors that do not seriously affect communication; a satisfactory range. | Fully satisfactory knowledge and use of the vocabulary needed. |
 | `communication` | Cannot complete the task; wrong elements make understanding impossible; a serious lack of fluency. | Satisfactory communication with the minimum content needed; anything irrelevant hardly affects communication. | Responds to the task very effectively. |
+
+<!-- /catalog -->
 
 KEG does not say how to choose between 2 and 3, or between 4 and 5. The app's rule (Estimate): the lower value when the description fits with clear weaknesses, the higher when it fits fully.
 
@@ -234,11 +252,11 @@ Our rendering of the KEG B1 speaking scale ([keg-speaking]). The sum of the five
 
 | Band | Descriptor |
 |---|---|
-| 1–5 | The content has nothing to do with the topic, and the meaning cannot be understood. Very poor and wrongly chosen vocabulary with constant repetition. Pronunciation and word stress often make the speech unintelligible; constant features of the native language. Poor content, very badly organised, with no sequence of ideas; wrong style. Cannot use even the most basic structures; so many inaccuracies that the speech cannot be understood. |
-| 6–10 | Cannot complete the task: the content is related to the topic, though hard to see, but the ideas are not developed at all. The meaning is hard or impossible to follow; answers may be learnt by heart or off the point. Very poor vocabulary, wrong words, frequent repetition. Pronunciation often unintelligible; word stress very weak. Poor content, badly organised in coherence and cohesion; wrong style. Weak in even the basic structures; many inaccuracies that harm understanding. |
-| 11–15 | Partly adequate, not very effective communication. The content is often the minimum, so that important aspects of the task are left out. Some hesitation is accepted, but in places it gets in the way badly. The vocabulary of the level is lacking; repetition and wrong choices may affect communication. The sounds are just about right; the native language makes the speech hard to understand at times; intonation is not used systematically. Incomplete organisation; signs of simple style features, but the style fits only where a familiar one is needed. Limited use of the structures of the level; some inaccuracies, which do not really affect communication. |
-| 16–20 | Completes the task in part, fairly effectively and at ease. The main idea is very clear, but some aspects are not developed enough. Very little hesitation. A fairly good range of vocabulary, mostly used correctly; limited use of idioms and specialised words, as expected at the level. Few errors in sounds and intonation; good word stress. Ideas and content fairly well organised and presented, with the successful use of some basic linking devices; the basic style features of the level used effectively, though not always correctly; a good sequence of ideas. The structures of the level used fairly accurately and effectively, with few errors. |
-| 21–25 | Completes the task fully, effectively and at ease. Very little hesitation. A fully satisfactory range of vocabulary, used correctly; some idioms and specialised words, as expected at the level. Correct sounds and intonation; faultless word stress. Ideas and content very well organised and presented, with the correct basic style features of the level; an excellent sequence of ideas. The structures of the level used very accurately and effectively. |
+| 1–5 | The content has nothing to do with the topic, and the meaning cannot be understood. Very poor and wrongly chosen vocabulary with constant repetition. Pronunciation and word stress often make the speech unintelligible; constant features of the native language. Poor content, very badly organized, with no sequence of ideas; wrong style. Cannot use even the most basic structures; so many inaccuracies that the speech cannot be understood. |
+| 6–10 | Cannot complete the task: the content is related to the topic, though hard to see, but the ideas are not developed at all. The meaning is hard or impossible to follow; answers may be learned by heart or off the point. Very poor vocabulary, wrong words, frequent repetition. Pronunciation often unintelligible; word stress very weak. Poor content, badly organized in coherence and cohesion; wrong style. Weak in even the basic structures; many inaccuracies that harm understanding. |
+| 11–15 | Partly adequate, not very effective communication. The content is often the minimum, so that important aspects of the task are left out. Some hesitation is accepted, but in places it gets in the way badly. The vocabulary of the level is lacking; repetition and wrong choices may affect communication. The sounds are just about right; the native language makes the speech hard to understand at times; intonation is not used systematically. Incomplete organization; signs of simple style features, but the style fits only where a familiar one is needed. Limited use of the structures of the level; some inaccuracies, which do not really affect communication. |
+| 16–20 | Completes the task in part, fairly effectively and at ease. The main idea is very clear, but some aspects are not developed enough. Very little hesitation. A fairly good range of vocabulary, mostly used correctly; limited use of idioms and specialized words, as expected at the level. Few errors in sounds and intonation; good word stress. Ideas and content fairly well organized and presented, with the successful use of some basic linking devices; the basic style features of the level used effectively, though not always correctly; a good sequence of ideas. The structures of the level used fairly accurately and effectively, with few errors. |
+| 21–25 | Completes the task fully, effectively and at ease. Very little hesitation. A fully satisfactory range of vocabulary, used correctly; some idioms and specialized words, as expected at the level. Correct sounds and intonation; faultless word stress. Ideas and content very well organized and presented, with the correct basic style features of the level; an excellent sequence of ideas. The structures of the level used very accurately and effectively. |
 
 ### What the app can and cannot judge
 

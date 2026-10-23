@@ -2,9 +2,18 @@
 	"cSpell.language": "el,en",
 	"cSpell.words": [
 		"androidx",
+		"distractors",
 		"gradlew",
+		"INEK",
 		"kotlinx",
 		"mlkit",
+		"pycache",
+		"pydantic",
+		"pyproject",
+		"pytest",
+		"roleplay",
+		"ruamel",
+		"venv",
 		"YubiKey"
 	]
 }

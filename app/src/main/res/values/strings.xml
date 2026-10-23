@@ -12,7 +12,7 @@
     <string name="diagnostics">Diagnostics</string>
 
     <!-- The settings. -->
-    <string name="diagnostics_summary">TTS voices, speech recognition, handwriting model</string>
+    <string name="diagnostics_summary">Content version, TTS voices, speech recognition, handwriting model</string>
 
     <!-- The countdown on home. -->
     <string name="countdown_registration">until the UCY registration opens</string>

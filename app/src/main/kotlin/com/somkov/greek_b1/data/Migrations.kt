@@ -1,11 +1,15 @@
 package com.somkov.greek_b1.data
 
+import androidx.room3.DeleteTable
+import androidx.room3.migration.AutoMigrationSpec
 import androidx.room3.migration.Migration
 
 /**
- * The migrations of [AppDatabase]. The database holds the user's progress, so it is migrated,
- * never dropped and recreated: the builder has no destructive fallback, and a missing migration
- * makes the app fail to open the database rather than lose the data.
+ * The migrations of [AppDatabase] that are written by hand; the ones that Room works out are
+ * the `AutoMigration`s of the `@Database` annotation, with their specs below. The database holds
+ * the user's progress, so it is migrated, never dropped and recreated: the builder has no
+ * destructive fallback, and a missing migration makes the app fail to open the database rather
+ * than lose the data.
  *
  * The rules for a change of the schema:
  * - A schema version that has been installed on the phone never changes. Any change raises
@@ -19,3 +23,11 @@ import androidx.room3.migration.Migration
  *   migration that moves data gets a test of its own that checks the data.
  */
 val MIGRATIONS: List<Migration> = emptyList()
+
+/**
+ * 1 → 2: the content tables replace the placeholder table of the skeleton, which the app never
+ * wrote to. Room creates the new tables; this spec tells it that the old one is dropped, not
+ * renamed.
+ */
+@DeleteTable(tableName = "placeholder")
+class DropPlaceholder : AutoMigrationSpec

@@ -1,0 +1,589 @@
+# The topics of the B1 exam with their situations, and the topics of the items
+# of the KEG sample papers.
+#
+# This file is the one source of these IDs and of their data; the tables of
+# docs/topics.md show them. How the topics were cut, their vocabulary areas and
+# functions, and the rules for content items are in the prose of that document.
+#
+# An ID in use is never renamed and never reused: the user tables of the app
+# keep the results by ID. An entry that is no longer needed stays here with
+# `retired: true`.
+#
+# topics: in the order of the overview.
+#   id          the topic
+#   name        the English name
+#   greek       the Greek name
+#   basis       the sources that name the topic
+#   situations  the situations of the topic:
+#     id        <topic>.<situation>; every content item names one
+#     name      what the situation covers
+#     greek     the Greek name
+#     examples  examples of content, with the sample items that use it
+#
+# samples: each item of the two KEG B1 sample papers, in the order of the
+# papers, with the topic it is counted under. The sample counts of the topics
+# follow from this list.
+#   item     the series, the part and the item, as in docs/topics.md
+#   content  what the item is about
+#   topic    the ID of the topic
+
+topics:
+  - id: personal
+    retired: false
+    name: Personal identity
+    greek: Ταυτότητα, προσωπικά στοιχεία
+    basis: UCY, KEG
+    situations:
+      - id: personal.details
+        retired: false
+        name: 'Personal details: name, age, origin, residence, family, languages'
+        greek: Προσωπικά στοιχεία
+        examples: >-
+          The interview questions; a form to fill in; introducing oneself in a letter to a new
+          contact.
+      - id: personal.appearance_character
+        retired: false
+        name: What a person looks like and what they are like
+        greek: Εμφάνιση και χαρακτήρας
+        examples: Describing a friend or a new colleague in a letter; the people in a picture.
+      - id: personal.daily_routine
+        retired: false
+        name: A normal day, a week, the weekend
+        greek: Η καθημερινότητά μου
+        examples: >-
+          "Πώς περνάτε μια συνηθισμένη μέρα σας;"; a listening text on a day in someone's life.
+      - id: personal.plans
+        retired: false
+        name: Plans, dreams, hopes
+        greek: Σχέδια, όνειρα, φιλοδοξίες
+        examples: >-
+          "Τι σχέδια έχετε για το μέλλον;"; a letter about a decision. (INEK, general aims.)
+
+  - id: relations
+    retired: false
+    name: Family, friends and social life
+    greek: Οικογένεια, φίλοι, κοινωνικές σχέσεις
+    basis: KEG
+    situations:
+      - id: relations.family
+        retired: false
+        name: 'Family life: roles, children, parents and grandparents, sharing tasks'
+        greek: Οικογενειακή ζωή
+        examples: >-
+          Tips for parents in a magazine (B R1); a role play on how to spend a family weekend.
+      - id: relations.friends
+        retired: false
+        name: 'Friendship: keeping in touch, helping, a quarrel'
+        greek: Φιλία
+        examples: >-
+          A letter to a friend with news or advice; "Τι μπορούμε να κάνουμε για να έχουμε καλές
+          σχέσεις με τους άλλους;" (B S-B3).
+      - id: relations.feelings
+        retired: false
+        name: 'Feelings in relationships: love, loneliness, jealousy, trust'
+        greek: Συναισθήματα, σχέσεις
+        examples: >-
+          A literary extract about a girl who looks for love (B R3); the feelings of the people in a
+          picture.
+      - id: relations.invitations
+        retired: false
+        name: >-
+          Invitations and visits: inviting, accepting, declining, what to bring, how long to stay
+        greek: Προσκλήσεις, επισκέψεις
+        examples: >-
+          A letter that invites a friend; a reply that declines politely. (KEG: the conventions of a
+          visit.)
+      - id: relations.celebrations
+        retired: false
+        name: 'Celebrations and customs: name days, birthdays, weddings, Easter, Christmas'
+        greek: Γιορτές, έθιμα
+        examples: >-
+          A letter about a celebration in the user's country; a text on Easter in a Cypriot village.
+      - id: relations.clubs
+        retired: false
+        name: Clubs, associations, volunteering
+        greek: Σύλλογοι, ομάδες, εθελοντισμός
+        examples: >-
+          An announcement of a club; a listening text on a volunteer group. (KEG: membership of
+          clubs and groups.)
+
+  - id: home
+    retired: false
+    name: Home and residence
+    greek: Κατοικία, διαμονή
+    basis: KEG
+    situations:
+      - id: home.description
+        retired: false
+        name: 'The home and the area: type, rooms, furniture, appliances'
+        greek: Το σπίτι μου, η γειτονιά μου
+        examples: >-
+          A letter describing a new flat; a comparison of flats for rent (`reading.comparison`).
+      - id: home.renting
+        retired: false
+        name: Renting, buying, moving
+        greek: Ενοικίαση, μετακόμιση
+        examples: >-
+          A small ad for a room (`writing.informal`, `advertisement`); an email to a landlord. (KEG:
+          letters to landlords.)
+      - id: home.repairs
+        retired: false
+        name: 'Something broken: a repair, a technician, the landlord'
+        greek: Βλάβες, επισκευές
+        examples: >-
+          A formal complaint to the landlord about a repair not done; a phone call to a plumber
+          (role play).
+      - id: home.housework
+        retired: false
+        name: Housework and sharing it
+        greek: Δουλειές του σπιτιού
+        examples: A role play between flatmates on who does what.
+      - id: home.neighbors
+        retired: false
+        name: 'Neighbors and the building: noise, pets, shared costs'
+        greek: Γείτονες, πολυκατοικία
+        examples: An announcement for the neighbors (`writing.informal`, `announcement`).
+
+  - id: environment
+    retired: false
+    name: Nature, environment and weather
+    greek: Περιβάλλον, φύση, καιρός
+    basis: KEG
+    situations:
+      - id: environment.weather
+        retired: false
+        name: Weather, seasons, climate, the forecast
+        greek: Καιρός, κλίμα
+        examples: >-
+          A weather forecast on the radio (listening; KEG text type); "Νομίζετε ότι το κλίμα
+          επηρεάζει τον χαρακτήρα των ανθρώπων;" (A S-B6).
+      - id: environment.places
+        retired: false
+        name: >-
+          Landscapes and places: sea and mountains, town and village, the home country and Cyprus
+        greek: Τόποι, τοπία
+        examples: >-
+          A letter comparing the user's home country with Cyprus. (KEG: compare the landscape of the
+          home country.)
+      - id: environment.protection
+        retired: false
+        name: Pollution, litter, recycling, saving water and energy, forest fires
+        greek: Προστασία του περιβάλλοντος
+        examples: >-
+          Two environmental groups on the radio (A L2); "Ανακυκλώνετε υλικά;" (A S-B5); fires in the
+          forests (A S-B4).
+      - id: environment.animals
+        retired: false
+        name: Pets, wild animals and their protection, animals that help people
+        greek: Ζώα
+        examples: A program to protect bears (B L1); guide dogs for the blind (B R4).
+
+  - id: leisure
+    retired: false
+    name: Free time, entertainment and culture
+    greek: Ελεύθερος χρόνος, διασκέδαση, πολιτισμός
+    basis: KEG
+    situations:
+      - id: leisure.hobbies
+        retired: false
+        name: Hobbies and interests
+        greek: Χόμπι, ενδιαφέροντα
+        examples: '"Πώς περνάτε τον ελεύθερο χρόνο σας;" (interview); a letter about a new hobby.'
+      - id: leisure.going_out
+        retired: false
+        name: 'Going out: cinema, theater, concerts, cafés; choosing what to see'
+        greek: Έξοδος, διασκέδαση
+        examples: Comedy or historical film (A S-rp1); booking seats by phone.
+      - id: leisure.culture
+        retired: false
+        name: 'Culture and the arts: museums, monuments, books, music'
+        greek: Πολιτισμός, τέχνες
+        examples: >-
+          The ancient theater (A R3); "Νομίζετε ότι η μουσική επηρεάζει τη διάθεση των ανθρώπων;" (B
+          S-B6).
+      - id: leisure.events
+        retired: false
+        name: 'Events and their programs: festivals, exhibitions, opening hours, prices'
+        greek: Εκδηλώσεις, προγράμματα
+        examples: >-
+          A comparison of five events in a city guide (`reading.comparison`); an announcement of a
+          festival.
+
+  - id: sport
+    retired: false
+    name: Sport and exercise
+    greek: Αθλητισμός, άσκηση
+    basis: KEG, Samples
+    situations:
+      - id: sport.sports
+        retired: false
+        name: Sports and teams, doing and watching
+        greek: Αθλήματα
+        examples: >-
+          A short biography of an athlete (`reading.comparison`); "Ασχολείστε με κάποιο άθλημα;"
+      - id: sport.fitness
+        retired: false
+        name: 'Keeping fit: the gym, running, exercise for health'
+        greek: Γυμναστική, άσκηση
+        examples: People at a gym (B S-pic1); park or gym (B S-rp4).
+      - id: sport.lessons
+        retired: false
+        name: 'Signing up for lessons: times, fees, what to buy, a medical check'
+        greek: Μαθήματα, εγγραφή
+        examples: >-
+          Swimming lessons at the municipal pool (B S-rp1); tips on teaching children to ski (A R1).
+      - id: sport.outdoors
+        retired: false
+        name: 'Outdoor activities: hiking, cycling, the sea, the snow'
+        greek: Δραστηριότητες στη φύση
+        examples: A letter about a new hiking group (B W1).
+
+  - id: shopping
+    retired: false
+    name: Shopping and consumer goods
+    greek: Αγορές, καταναλωτικά αγαθά
+    basis: KEG
+    situations:
+      - id: shopping.shops
+        retired: false
+        name: 'Kinds of shop: malls, small shops, the market, the supermarket'
+        greek: Καταστήματα
+        examples: >-
+          "Πού προτιμάτε να ψωνίζετε; Σε εμπορικά κέντρα ή σε μικρά μαγαζιά;" (A S-B2, B S-B2).
+      - id: shopping.buying
+        retired: false
+        name: 'Choosing and buying: price, sales, payment, guarantee, the advice of the assistant'
+        greek: Αγορά προϊόντος
+        examples: >-
+          A mobile phone (B S-rp5); a new computer or an upgrade (B S-rp6); a family car or a sports
+          car (B S-rp3).
+      - id: shopping.clothes
+        retired: false
+        name: Clothes and sizes
+        greek: Ρούχα
+        examples: A role play in a clothes shop; a letter about what to wear at an event.
+      - id: shopping.returns
+        retired: false
+        name: 'A faulty product: return, exchange, refund'
+        greek: Επιστροφή, παράπονα
+        examples: 'A formal complaint to a company (KEG: complaints to a company).'
+      - id: shopping.online
+        retired: false
+        name: Buying online and delivery
+        greek: Ηλεκτρονικές αγορές
+        examples: An email about an order that did not arrive; a discussion on the pros and cons.
+
+  - id: food
+    retired: false
+    name: Food and eating
+    greek: Διατροφή, φαγητό
+    basis: KEG, INEK 5
+    situations:
+      - id: food.habits
+        retired: false
+        name: >-
+          Eating habits and diet: healthy, Mediterranean, vegetarian; the habits of the home country
+        greek: Διατροφικές συνήθειες
+        examples: A magazine article with diet tips (`reading.gap_fill`); "Τι τρώνε στη χώρα σας;"
+      - id: food.cooking
+        retired: false
+        name: Cooking and recipes; the cuisine of the home country
+        greek: Μαγειρική, συνταγές
+        examples: >-
+          A recipe for a friend (`writing.informal`); a listening text on a traditional dish.
+          (INEK.)
+      - id: food.eating_out
+        retired: false
+        name: 'Restaurants, taverns, cafés: menus, booking, ordering, the bill, delivery'
+        greek: Φαγητό εκτός σπιτιού
+        examples: New restaurants found online (A R2); a complaint to a restaurant.
+
+  - id: health
+    retired: false
+    name: Health and the body
+    greek: Υγεία
+    basis: KEG, INEK 4
+    situations:
+      - id: health.doctor
+        retired: false
+        name: 'At the doctor: an appointment, the symptoms, the specialists'
+        greek: Στον γιατρό
+        examples: >-
+          Booking an appointment by phone (role play); describing a problem to the doctor. (INEK.)
+      - id: health.hospital_pharmacy
+        retired: false
+        name: 'The hospital and the pharmacy: departments, medicines, prescriptions'
+        greek: Νοσοκομείο, φαρμακείο
+        examples: >-
+          The announcement of the on-duty pharmacies; the instructions on a medicine
+          (`reading.true_false`).
+      - id: health.emergency
+        retired: false
+        name: 'Emergencies and accidents: the ambulance, first aid'
+        greek: Επείγοντα περιστατικά
+        examples: >-
+          A listening text in which someone calls for help; a short report on an accident at work.
+      - id: health.lifestyle
+        retired: false
+        name: 'A healthy life: sleep, stress, water, smoking'
+        greek: Υγιεινός τρόπος ζωής
+        examples: Water as a source of life (A R4); "Τι άλλο κάνετε για να είστε υγιής;" (B S-pic1).
+
+  - id: travel
+    retired: false
+    name: Travel and transport
+    greek: Μετακίνηση, ταξίδια
+    basis: KEG, INEK 4
+    situations:
+      - id: travel.holidays
+        retired: false
+        name: 'Holidays and trips: destinations, organized or independent travel'
+        greek: Διακοπές, εκδρομές
+        examples: Leaflets of travel agencies (B R2); a group trip or a trip of one's own (A S-rp2).
+      - id: travel.booking
+        retired: false
+        name: 'Bookings: hotel rooms, tickets, timetables, delays, luggage'
+        greek: Κρατήσεις, εισιτήρια
+        examples: An email to a hotel (KEG writing aims); a complaint about a canceled flight.
+      - id: travel.public_transport
+        retired: false
+        name: 'Getting around: bus, taxi, airport, port; announcements'
+        greek: Συγκοινωνίες
+        examples: Announcements at an airport or a bus station (listening; KEG text type).
+      - id: travel.driving
+        retired: false
+        name: 'Driving: the car, petrol, the garage, traffic, parking, car hire'
+        greek: Οδήγηση
+        examples: Traffic news on the radio (listening; KEG text type); a role play at a garage.
+      - id: travel.road_safety
+        retired: false
+        name: 'Road safety and accidents: seat belt, helmet, speed, the traffic police'
+        greek: Οδική ασφάλεια
+        examples: >-
+          A short report on a road accident (KEG writing aims); a leaflet on road safety. (INEK.)
+      - id: travel.directions
+        retired: false
+        name: Asking for and giving directions
+        greek: Οδηγίες στον δρόμο
+        examples: A listening text with directions in the street (KEG text type).
+
+  - id: education
+    retired: false
+    name: Education and learning
+    greek: Εκπαίδευση
+    basis: KEG, INEK 3
+    situations:
+      - id: education.school
+        retired: false
+        name: >-
+          School: kinds of school, enrolling a child, the teachers and the parents' association,
+          school events
+        greek: Σχολείο
+        examples: >-
+          A school party at the end of the year (B S-rp2); computers at school (A S-pic2); "Θεωρείτε
+          ότι οι νέοι μαθαίνουν αρκετά πράγματα στα σχολεία;" (A S-B7).
+      - id: education.university
+        retired: false
+        name: 'Studies: the university, degrees, fees, enrollment papers, exams'
+        greek: Σπουδές
+        examples: >-
+          A comparison of study programs (`reading.comparison`); an email asking what papers the
+          enrollment needs. (INEK.)
+      - id: education.adult_courses
+        retired: false
+        name: 'Courses for adults: language and training courses, enrolling'
+        greek: Μαθήματα για ενήλικες
+        examples: >-
+          Signing up for a Greek course (role play); a formal request for information. (INEK.)
+      - id: education.languages
+        retired: false
+        name: 'Learning a language: ways of learning, why learn Greek'
+        greek: Εκμάθηση γλωσσών
+        examples: An online language course or a teacher (B S-rp7).
+      - id: education.career_choice
+        retired: false
+        name: Choosing studies and a profession
+        greek: Επιλογή σπουδών, επαγγέλματος
+        examples: An article with advice to parents on choosing a profession after school (B W2).
+
+  - id: work
+    retired: false
+    name: Work and employment
+    greek: Εργασία
+    basis: KEG, INEK 2
+    situations:
+      - id: work.job_search
+        retired: false
+        name: 'Looking for a job: ads, the CV, the cover letter, the employment office'
+        greek: Αναζήτηση εργασίας
+        examples: Advice to a friend who looks for a job (A W1); a call about a job ad. (INEK.)
+      - id: work.interview
+        retired: false
+        name: 'The job interview: experience, qualifications, the questions of the employer'
+        greek: Συνέντευξη εργασίας
+        examples: Four candidates at job interviews (B L2).
+      - id: work.conditions
+        retired: false
+        name: 'Conditions of work: hours, pay, leave, overtime, the contract, benefits'
+        greek: Συνθήκες εργασίας
+        examples: >-
+          A reasoned request for leave to the employer (`writing.formal`, UCY part B); a comparison
+          of job ads (`reading.comparison`).
+      - id: work.workplace
+        retired: false
+        name: 'The workplace: colleagues, duties, rules, a uniform, safety'
+        greek: Χώρος εργασίας
+        examples: A uniform for all at work (A S-rp3); an announcement for colleagues.
+
+  - id: services
+    retired: false
+    name: Public services and everyday business
+    greek: Δημόσιες υπηρεσίες, συναλλαγές
+    basis: KEG
+    situations:
+      - id: services.bank
+        retired: false
+        name: 'The bank: account, card, loan, payments'
+        greek: Τράπεζα
+        examples: >-
+          A complaint to the bank manager about a call on a late car-loan payment (A W2);
+          instructions of a cash machine (KEG text type).
+      - id: services.post
+        retired: false
+        name: 'The post office and couriers: letters, parcels'
+        greek: Ταχυδρομείο
+        examples: A role play about a parcel that did not arrive.
+      - id: services.utilities
+        retired: false
+        name: 'Electricity, water, phone and internet: contracts, bills, faults'
+        greek: Ηλεκτρισμός, νερό, τηλέφωνο
+        examples: A complaint about a wrong bill; a call to report a fault.
+      - id: services.authorities
+        retired: false
+        name: >-
+          Public authorities: forms, certificates, the municipality, the Citizen Service Centre, the
+          migration office
+        greek: Δημόσιες υπηρεσίες, έντυπα
+        examples: Filling in a form; asking which papers a residence permit needs.
+      - id: services.police
+        retired: false
+        name: 'The police: a loss, a theft, a report'
+        greek: Αστυνομία
+        examples: Reporting a lost wallet (role play).
+
+  - id: media
+    retired: false
+    name: Media and technology
+    greek: ΜΜΕ, τεχνολογία
+    basis: INEK 6, Samples
+    situations:
+      - id: media.tv_radio
+        retired: false
+        name: 'Television and radio: programs, TV and children'
+        greek: Τηλεόραση, ραδιόφωνο
+        examples: >-
+          "Είναι καλό ή κακό να βλέπουν τα παιδιά τηλεόραση;" (A S-B1, B S-B1); watching TV at home
+          (B S-pic2).
+      - id: media.press_news
+        retired: false
+        name: 'The press and the news: newspapers in print or online, headlines, journalists'
+        greek: Τύπος, ειδήσεις
+        examples: >-
+          A journalist at work (A S-pic1); newspapers online or in print (A S-rp4); a simple news
+          article (`reading.gap_fill`).
+      - id: media.internet
+        retired: false
+        name: 'The internet and social media: use, pros and cons, safety'
+        greek: Διαδίκτυο
+        examples: >-
+          "Ποια θεωρείτε ότι είναι τα θετικά και ποια τα αρνητικά στοιχεία του διαδικτύου;" (B
+          S-B7).
+      - id: media.devices
+        retired: false
+        name: Computers and phones in daily life, and their problems
+        greek: Υπολογιστές, κινητά
+        examples: >-
+          A letter to a friend on a new phone that does not work; a magazine survey on phone use
+          (`reading.comparison`).
+
+  - id: past_present
+    retired: false
+    name: Then and now
+    greek: Τότε και τώρα
+    basis: INEK 1
+    situations:
+      - id: past_present.memories
+        retired: false
+        name: Childhood and memories
+        greek: Αναμνήσεις
+        examples: >-
+          A letter about a summer of one's childhood; "Όταν ήσασταν παιδί, τι σας άρεσε να κάνετε;"
+      - id: past_present.life_stories
+        retired: false
+        name: Life stories and biographies
+        greek: Βιογραφίες, ιστορίες ζωής
+        examples: >-
+          The story of a grandfather who came to the city (A L1); short biographies
+          (`reading.comparison`).
+      - id: past_present.changes
+        retired: false
+        name: 'How life has changed: family, work, entertainment, relations'
+        greek: Αλλαγές στη ζωή
+        examples: >-
+          "Πώς ήταν η ζωή των παππούδων σας;"; a radio talk on how shopping has changed. (INEK.)
+      - id: past_present.history
+        retired: false
+        name: 'The past of a place: a town then and now, a monument, an event'
+        greek: Ιστορία ενός τόπου
+        examples: A simple historical text on a Cypriot town (`reading.true_false`).
+
+samples:
+  - {item: A R1, content: Tips on teaching children to ski, topic: sport}
+  - {item: A R2, content: New restaurants in Athens, topic: food}
+  - {item: A R3, content: The theater in ancient Greece, topic: leisure}
+  - {item: A R4, content: Water is a source of life, topic: health}
+  - {item: A L1, content: The story of my grandfather, topic: past_present}
+  - {item: A L2, content: Two environmental groups on the radio, topic: environment}
+  - {item: A W1, content: Advice to a friend who looks for a job, topic: work}
+  - {item: A W2, content: Complaint to the bank about a car loan, topic: services}
+  - item: A S-A
+    content: 'Interview: name, residence, school or work, free time, Greece, languages'
+    topic: personal
+  - {item: A S-B1, content: TV and children, topic: media}
+  - {item: A S-B2, content: Malls or small shops, topic: shopping}
+  - {item: A S-B3, content: Protecting the environment, topic: environment}
+  - {item: A S-B4, content: Forest fires, topic: environment}
+  - {item: A S-B5, content: Recycling, topic: environment}
+  - {item: A S-B6, content: Climate and character, topic: environment}
+  - {item: A S-B7, content: What young people learn at school, topic: education}
+  - {item: A S-pic1, content: A journalist, topic: media}
+  - {item: A S-pic2, content: Computers at school, topic: education}
+  - {item: A S-rp1, content: Comedy or historical film, topic: leisure}
+  - {item: A S-rp2, content: Group trip or independent trip, topic: travel}
+  - {item: A S-rp3, content: A uniform at school or at work, topic: work}
+  - {item: A S-rp4, content: Newspapers online or in print, topic: media}
+  - {item: B R1, content: Tips for mothers and spouses before the holidays, topic: relations}
+  - {item: B R2, content: Travel agencies, topic: travel}
+  - {item: B R3, content: 'Literary extract: a girl looks for love', topic: relations}
+  - {item: B R4, content: Guide dogs for the blind, topic: environment}
+  - {item: B L1, content: A program to protect bears, topic: environment}
+  - {item: B L2, content: Four job interviews, topic: work}
+  - {item: B W1, content: A new hiking group, topic: sport}
+  - {item: B W2, content: 'Article: choosing a profession after school', topic: education}
+  - {item: B S-A, content: 'Interview, as in A, plus the favorite food', topic: personal}
+  - {item: B S-B1, content: TV and children, topic: media}
+  - {item: B S-B2, content: Malls or small shops, topic: shopping}
+  - {item: B S-B3, content: Good relations with others, topic: relations}
+  - {item: B S-B4, content: Litter in the streets, topic: environment}
+  - {item: B S-B5, content: Recycling, topic: environment}
+  - {item: B S-B6, content: Music and mood, topic: leisure}
+  - {item: B S-B7, content: 'The internet, pros and cons', topic: media}
+  - {item: B S-pic1, content: At the gym, topic: sport}
+  - {item: B S-pic2, content: Watching TV, topic: media}
+  - {item: B S-rp1, content: Swimming lessons at the municipal pool, topic: sport}
+  - {item: B S-rp2, content: Planning a school party, topic: education}
+  - {item: B S-rp3, content: Family car or sports car, topic: shopping}
+  - {item: B S-rp4, content: Exercise in the park or at the gym, topic: sport}
+  - {item: B S-rp5, content: Buying a mobile phone, topic: shopping}
+  - {item: B S-rp6, content: A new computer or an upgrade, topic: shopping}
+  - {item: B S-rp7, content: Learning a language online, topic: education}

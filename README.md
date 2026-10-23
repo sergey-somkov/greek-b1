@@ -54,21 +54,31 @@ On Linux (Ubuntu 24.04), with the command-line tools only: no Android Studio is 
    - Install `cmdline-tools;latest`, `platform-tools`, the platform and the build tools that `app/build.gradle.kts` uses (`android sdk install …`), and accept the licenses (`sdkmanager --licenses`). Update with `android sdk update` and the CLI itself with `android update`.
 3. **The phone:** enable the developer options and USB debugging, turn off Auto Blocker (it blocks commands over USB), connect by USB and authorize the machine; `adb devices` shows the phone as `device`. No udev rule is needed: the system hwdb marks the phone (`04e8:6860`) as a media player, and `70-uaccess.rules` gives the session user access to it.
 4. **The signing key and the sources:** `git-crypt unlock` with the user's GPG key on the YubiKey (`2D4915021E880180A0B1963DCDF9857CB81BADBC`). That GPG key has no backup outside the YubiKey, so the exported git-crypt key is kept in the password manager. The unlocked `app/debug.keystore` has the certificate SHA-256 `59:1C:4F:C1:E1:AA:3D:BC:F2:22:A3:2E:B9:26:74:A4:7D:1A:8B:E4:24:73:37:41:C7:E8:9F:1C:DD:B7:63:4B` (`keytool -list -v -keystore app/debug.keystore -storepass android`).
-5. **Build, install, run and test** with the scripts in `tools/`, from any directory. Each script says at its top what it does and where its extra arguments go.
+5. **The Python environment** of the content scripts, in `.venv/` in the repository root: the commands are at the top of [pyproject.toml](pyproject.toml). It uses the system Python 3.12; nothing is installed outside the project. The build of the app needs it.
+6. **Build, install, run and test** with the scripts in `tools/`, from any directory. Each script says at its top what it does and where its extra arguments go.
 
-   - `tools/build.sh`: builds the debug APK.
+   - `tools/build.sh`: builds the debug APK. It validates the content and packages it into the APK; a validation error fails the build.
    - `tools/install.sh`: installs the APK over the installed app (`adb install -r`). It refuses an APK signed with another key, and takes no arguments, so it cannot lose the progress data.
    - `tools/start.sh`: starts the app on the phone.
    - `tools/logs.sh`: follows the log of the app, crashes and library messages included; `-d` prints it and exits.
    - `tools/test.sh`: runs the unit tests on the JVM; the phone is not needed.
-   - `tools/test-device.sh`: runs the tests on the phone (the navigation, the database). They run against a copy of the app under its own application ID, which Gradle installs and removes; the installed app and its data are not touched.
+   - `tools/test-device.sh`: runs the tests on the phone (the navigation, the database, the load of the content). They run against a copy of the app under its own application ID, which Gradle installs and removes; the installed app and its data are not touched.
 
    Never uninstall the app or clear its data: that loses the progress data.
+
+   The learning content in `content/` (see [content/README.md](content/README.md)) has a script of its own, `tools/content.py`, with a command per job:
+
+   - `tools/content.py validate`: checks the catalog, the items, their audio and pictures, and the tables of the docs; it prints each problem as `path:line: error|warning: …` and fails on an error.
+   - `tools/content.py coverage`: counts the items per topic, per situation, and per topic and task type.
+   - `tools/content.py docs`: rewrites the tables of `docs/` from the catalog in `content/catalog/`, after a change of the catalog.
+   - `tools/content.py bundle DIR`: validates the content and writes its bundle for the APK under `DIR`; the build runs it.
+   - `.venv/bin/pytest` runs the tests of the Python scripts, and `.venv/bin/pyright` checks their types.
 
 ## Documents
 
 - [PLAN.md](PLAN.md): the plan of the MVP as a list of stories, with their status.
 - [DESIGN.md](DESIGN.md): the architecture, the decisions made, and the open questions.
+- [content/README.md](content/README.md): the format of the learning content, and the rules for its IDs.
 - [CLAUDE.md](CLAUDE.md): the rules for Claude Code in this repository.
 - [docs/exam-spec.md](docs/exam-spec.md): the B1 exam specification: the parts, the tasks, the counts, the timing and the rules, each fact with its source; and how the KEG exam differs.
 - [docs/assessment-criteria.md](docs/assessment-criteria.md): the scoring of reading and listening, and the criteria and band descriptors for writing and speaking, for the LLM prompts.

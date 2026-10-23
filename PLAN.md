@@ -68,7 +68,7 @@ The base structure of the app: Kotlin, Jetpack Compose, navigation between the m
 
 ### 4. Content format and pipeline
 - Branch: `story/content-pipeline`
-- Status: Not started
+- Status: Done
 
 The format of the learning content in the repository (texts, tasks, answers, dialogue scripts, references to audio), with stable IDs and references to the task type and the situation of the catalogs of story 2. The machine-readable catalog of the task types, topics, situations and functions, made from the tables of story 2, which from then on is the source of the IDs. A validator script that checks the content against the format and the catalog. The packaging of the content into the APK, and its load into the app's database on the first start and after each update, so that the progress data survives a content update. A small sample set of content to test the pipeline.
 
@@ -124,7 +124,7 @@ Compare the offline speech-to-text engines for Greek on the phone (Vosk, whisper
 - Branch: `story/speaking`
 - Status: Not started
 
-The speaking part: the task types of the exam (for example interview questions, picture description, role play), the prompts read by TTS where the exam has an examiner or a partner (the exam is taken in pairs, and the role play is between the two candidates), a timed recording, the transcript from story 12, and the assessment of content, vocabulary and fluency (with simple measures such as words per minute and pauses). The first batch of speaking tasks.
+The speaking part: the task types of the exam (for example interview questions, picture description, role play), the prompts read by TTS where the exam has an examiner or a partner (the exam is taken in pairs, and the role play is between the two candidates), a timed recording, the transcript from story 12, and the assessment of content, vocabulary and fluency (with simple measures such as words per minute and pauses). The first batch of speaking tasks, with the pictures of the picture description: decide where they come from, and package them into the APK.
 
 ### 14. Mock exam
 - Branch: `story/mock-exam`
@@ -148,7 +148,7 @@ Collect the errors from all parts (wrong answers, the corrections from the writi
 - Branch: `story/content-coverage`
 - Status: Not started
 
-Fill the gaps in the content: enough items for every topic of the catalog and every task type of every part, for the planned number of weeks of daily practice and for several different mock exams. Includes a coverage report from the validator.
+Fill the gaps in the content: enough items for every topic of the catalog and every task type of every part, for the planned number of weeks of daily practice and for several different mock exams. Extends the coverage report of story 4 with the targets.
 
 ### 18. Backup and restore
 - Branch: `story/backup`

@@ -45,13 +45,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.somkov.greek_b1.R
 import com.somkov.greek_b1.ScreenScaffold
 
 /**
- * The capability probe of story 1, opened from the settings: what the phone offers for Greek TTS,
- * speech recognition and handwriting, to see what a system update or a new phone changes.
+ * Opened from the settings: the content that the database holds, and the capability probe of
+ * story 1, that is, what the phone offers for Greek TTS, speech recognition and handwriting, to
+ * see what a system update or a new phone changes.
  */
 @Composable
 fun DiagnosticsScreen(onBack: () -> Unit) {
@@ -63,6 +65,8 @@ fun DiagnosticsScreen(onBack: () -> Unit) {
             modifier = Modifier.padding(innerPadding).verticalScroll(rememberScrollState()).padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
+            ContentSection(viewModel.content.collectAsStateWithLifecycle().value)
+            HorizontalDivider()
             TtsSection(viewModel.tts)
             HorizontalDivider()
             SpeechSection(viewModel.speech)
@@ -70,6 +74,19 @@ fun DiagnosticsScreen(onBack: () -> Unit) {
             InkSection(viewModel.ink)
         }
     }
+}
+
+/** The content version and the items per part, so the phone shows which content it has. */
+@Composable
+private fun ContentSection(content: ContentSummary?) {
+    SectionTitle("Content")
+    // Null for the moment until the database answers.
+    if (content == null) return
+    Text(content.version?.let { "Version $it" } ?: "Not loaded", style = MaterialTheme.typography.bodyMedium)
+    Text(
+        content.itemsPerPart.joinToString(" · ") { (part, count) -> "$part $count" },
+        style = MaterialTheme.typography.bodyMedium,
+    )
 }
 
 @Composable

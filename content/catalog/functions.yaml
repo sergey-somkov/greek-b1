@@ -1,0 +1,228 @@
+# The communicative functions: what the user must be able to do with the
+# language, across topics.
+#
+# This file is the one source of these IDs and of their data; the table of
+# docs/topics.md (section "Communicative functions") shows them.
+#
+# An ID in use is never renamed and never reused: the user tables of the app
+# keep the results by ID. An entry that is no longer needed stays here with
+# `retired: true`.
+#
+# functions:
+#   id         the function; a writing or speaking item lists 1-4 of them
+#   name       what the function is
+#   greek      the Greek name
+#   exponents  typical Greek phrases at B1, a guide for the content and the LLM
+#   mostly_in  where the function is used most: a task type ID, a part (all
+#              its types), or {task_type, genre}; a guide, not a rule
+
+functions:
+  - id: give_information
+    retired: false
+    name: Give information about oneself or a matter
+    greek: Δίνω πληροφορίες
+    exponents:
+      - Μένω στη Λεμεσό εδώ και τρία χρόνια.
+      - Δουλεύω ως…
+    mostly_in: [speaking.interview, writing.formal]
+
+  - id: ask_information
+    retired: false
+    name: Ask for information
+    greek: Ζητώ πληροφορίες
+    exponents:
+      - Θα ήθελα να μάθω…
+      - Μπορείτε να μου πείτε πότε…;
+    mostly_in: [speaking.roleplay, writing.formal]
+
+  - id: describe
+    retired: false
+    name: Describe people, things, places, a picture, a problem
+    greek: Περιγράφω
+    exponents:
+      - Στην εικόνα βλέπω…
+      - Είναι ψηλός και έχει καστανά μαλλιά.
+    mostly_in: [speaking.picture, writing.informal]
+
+  - id: narrate
+    retired: false
+    name: Tell events and experiences, the plot of a book or a film
+    greek: Αφηγούμαι
+    exponents:
+      - Πριν από δύο χρόνια…
+      - Στην αρχή…, μετά…, στο τέλος…
+    mostly_in: [writing.informal, speaking.opinion]
+
+  - id: compare
+    retired: false
+    name: Compare things, places, the past and the present
+    greek: Συγκρίνω
+    exponents:
+      - πιο οικονομικό από…
+      - ενώ…
+      - σε αντίθεση με…
+    mostly_in:
+      - speaking.opinion
+      - {task_type: writing.formal, genre: article}
+
+  - id: instruct
+    retired: false
+    name: Give instructions or directions
+    greek: Δίνω οδηγίες
+    exponents:
+      - Πρώτα κόβετε…, μετά…
+      - Μην ξεχάσετε να…
+      - Στρίψτε δεξιά.
+    mostly_in: [writing.informal, speaking.roleplay]
+
+  - id: express_opinion
+    retired: false
+    name: Express and ask for an opinion
+    greek: Εκφράζω γνώμη
+    exponents:
+      - Νομίζω / πιστεύω / θεωρώ ότι…
+      - Κατά τη γνώμη μου…
+      - Εσύ τι λες;
+    mostly_in:
+      - speaking.opinion
+      - {task_type: writing.formal, genre: article}
+
+  - id: give_reasons
+    retired: false
+    name: Give reasons for a view, a choice or a request
+    greek: Αιτιολογώ
+    exponents:
+      - γιατί / επειδή…
+      - γι' αυτό…
+      - αφού…
+      - Ο λόγος είναι ότι…
+    mostly_in: [writing, speaking]
+
+  - id: express_preference
+    retired: false
+    name: Say what one prefers
+    greek: Εκφράζω προτίμηση
+    exponents:
+      - Προτιμώ… από…
+      - Μου αρέσει περισσότερο να…
+    mostly_in: [speaking.opinion, speaking.roleplay]
+
+  - id: agree_disagree
+    retired: false
+    name: Agree, disagree, concede
+    greek: Συμφωνώ, διαφωνώ
+    exponents:
+      - Συμφωνώ μαζί σου.
+      - Έχεις δίκιο, αλλά…
+      - Δεν συμφωνώ καθόλου.
+    mostly_in: [speaking.roleplay]
+
+  - id: persuade
+    retired: false
+    name: Try to persuade, insist
+    greek: Πείθω, επιμένω
+    exponents:
+      - Σκέψου ότι…
+      - Δεν είναι καλύτερα να…;
+      - Επιμένω ότι…
+    mostly_in: [speaking.roleplay, writing.informal]
+
+  - id: express_feelings
+    retired: false
+    name: 'Express feelings: joy, regret, fear, worry, surprise'
+    greek: Εκφράζω συναισθήματα
+    exponents:
+      - Χαίρομαι που…
+      - Λυπάμαι που…
+      - Φοβάμαι ότι / μήπως…
+    mostly_in: [speaking.picture, writing.informal]
+
+  - id: advise
+    retired: false
+    name: Ask for and give advice
+    greek: Ζητώ και δίνω συμβουλές
+    exponents:
+      - Τι να κάνω;
+      - Σου προτείνω να…
+      - Αν ήμουν στη θέση σου, θα…
+    mostly_in:
+      - writing.informal
+      - {task_type: writing.formal, genre: article}
+
+  - id: suggest
+    retired: false
+    name: Suggest, make plans together
+    greek: Προτείνω
+    exponents:
+      - Τι λες να…;
+      - Πάμε να…
+      - Γιατί δεν…;
+    mostly_in: [speaking.roleplay, writing.informal]
+
+  - id: invite
+    retired: false
+    name: Invite, accept, decline politely
+    greek: Προσκαλώ, δέχομαι, αρνούμαι
+    exponents:
+      - Θα ήθελες να έρθεις…;
+      - Ευχαρίστως!
+      - Δυστυχώς δεν μπορώ, γιατί…
+    mostly_in: [writing.informal]
+
+  - id: plan
+    retired: false
+    name: Talk about plans, intentions, hopes
+    greek: Μιλώ για σχέδια
+    exponents:
+      - Σκοπεύω να…
+      - Σκέφτομαι να…
+      - Ελπίζω να…
+    mostly_in: [speaking.interview, writing.informal]
+
+  - id: request
+    retired: false
+    name: Ask for something or for a service
+    greek: Ζητώ κάτι
+    exponents:
+      - Θα μπορούσατε να…;
+      - Θα ήθελα…, παρακαλώ.
+    mostly_in: [speaking.roleplay, writing.formal]
+
+  - id: ask_permission
+    retired: false
+    name: Ask for permission or leave, with reasons
+    greek: Ζητώ άδεια
+    exponents:
+      - Μπορώ να…;
+      - Θα ήθελα να ζητήσω άδεια για…
+    mostly_in: [writing.formal]
+
+  - id: complain
+    retired: false
+    name: Complain, with reasons, and ask for a remedy
+    greek: Παραπονιέμαι
+    exponents:
+      - Θα ήθελα να εκφράσω τα παράπονά μου για…
+      - Σας παρακαλώ να…
+    mostly_in: [writing.formal, speaking.roleplay]
+
+  - id: social_courtesy
+    retired: false
+    name: Greet, thank, congratulate, wish, apologize
+    greek: Χαιρετώ, ευχαριστώ, εύχομαι
+    exponents:
+      - Συγχαρητήρια!
+      - Σ' ευχαριστώ πολύ για…
+      - Χρόνια πολλά!
+      - Ζητώ συγγνώμη για…
+    mostly_in: [writing.informal, speaking]
+
+  - id: manage_conversation
+    retired: false
+    name: Open and close a talk, take the turn, ask for repetition or clarification
+    greek: Διαχειρίζομαι τη συζήτηση
+    exponents:
+      - Συγγνώμη, δεν κατάλαβα.
+      - Μπορείτε να το επαναλάβετε;
+      - Δηλαδή;
+    mostly_in: [speaking]
