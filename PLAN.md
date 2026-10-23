@@ -54,7 +54,7 @@ Make the development environment work end to end: JDK, Android SDK command-line 
 
 ### 2. Exam specification and B1 topic catalog
 - Branch: `story/exam-spec`
-- Status: Not started
+- Status: Done
 
 Collect the official description of the exam and its sample papers. Write down, in the repository, the structure of each part: the task types, the number of items, the timing, the length of texts, and the assessment criteria. Make the catalog of B1 topics that the exam uses, each with its typical situations and vocabulary areas. Every content item and every exercise later refers to this catalog and to these task types. Work from the UCY documents in `docs/sources/`, and check the format of the KEG exam, the fallback, for the differences.
 
@@ -68,7 +68,7 @@ The base structure of the app: Kotlin, Jetpack Compose, navigation between the m
 - Branch: `story/content-pipeline`
 - Status: Not started
 
-The format of the learning content in the repository (texts, tasks, answers, dialogue scripts, references to audio), with stable IDs and tags for topic, part and task type. A validator script that checks the content against the format and the catalog of story 2. The packaging of the content into the APK, and its load into the app's database on the first start and after each update, so that the progress data survives a content update. A small sample set of content to test the pipeline.
+The format of the learning content in the repository (texts, tasks, answers, dialogue scripts, references to audio), with stable IDs and references to the task type and the situation of the catalogs of story 2. The machine-readable catalog of the task types, topics, situations and functions, made from the tables of story 2, which from then on is the source of the IDs. A validator script that checks the content against the format and the catalog. The packaging of the content into the APK, and its load into the app's database on the first start and after each update, so that the progress data survives a content update. A small sample set of content to test the pipeline.
 
 ### 5. Daily time and progress tracking
 - Branch: `story/progress-tracking`
@@ -80,13 +80,13 @@ Record every practice session: the start, the end, the part, the tasks done and 
 - Branch: `story/reading`
 - Status: Not started
 
-The reading part: the task types of the exam (for example multiple choice, matching, true/false, gap fill), an exam-like timer, the check of the answers with explanations, and the results recorded by story 5. The first batch of reading content over the topic catalog.
+The reading part: the four task types of the exam (matching, comparison, true/false, gap fill from a word bank), an exam-like timer, the check of the answers with explanations, and the results recorded by story 5. The first batch of reading content over the topic catalog.
 
 ### 7. Listening with the system TTS
 - Branch: `story/listening`
 - Status: Not started
 
-The listening part: the task types of the exam, an audio player (play, pause, replay as the exam allows, speed), and the questions. Audio comes from the Android system TTS. The phone has one Greek voice for apps, so dialogues use a different pitch and rate per speaker. The first batch of listening content.
+The listening part: the five task types that UCY lists (notes, comparison, true/false, gap fill, multiple choice), an audio player (play, pause, replay as the exam allows, speed), and the questions. Audio comes from the Android system TTS. The phone has one Greek voice for apps, so dialogues use a different pitch and rate per speaker. The first batch of listening content.
 
 ### 8. Pre-generated neural audio
 - Branch: `story/neural-audio`
@@ -128,7 +128,7 @@ The speaking part: the task types of the exam (for example interview questions, 
 - Branch: `story/mock-exam`
 - Status: Not started
 
-A full exam under exam conditions: the four parts in the exam's order and timing, no help, and a result per part and in total, with an estimate of pass or fail. The mock exams are recorded separately in the progress data.
+A full exam under exam conditions: the four parts in the exam's order and timing, no help, and a result per part and in total, with an estimate of pass or fail. A second timing profile for the KEG exam, which is also a harder practice for the UCY one. The mock exams are recorded separately in the progress data.
 
 ### 15. Daily plan
 - Branch: `story/daily-plan`

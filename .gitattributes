@@ -1,2 +1,5 @@
 # Signing keys are encrypted with git-crypt; see app/build.gradle.kts.
 *.keystore filter=git-crypt diff=git-crypt
+# Exam sources, including copyrighted sample papers, are encrypted too; the index stays readable.
+docs/sources/** filter=git-crypt diff=git-crypt
+docs/sources/README.md !filter !diff

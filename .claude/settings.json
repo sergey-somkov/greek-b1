@@ -14,7 +14,6 @@
       "Bash(git am *)",
       "Bash(git switch *)",
       "Bash(git restore *)",
-      "Bash(gh *)",
       "Bash(sudo)",
       "Bash(sudo *)",
       "Bash(su)",

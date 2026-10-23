@@ -4,14 +4,14 @@ The architecture of the app: the main ideas, the decisions made, and the open qu
 
 ## Status
 
-Story 1 settled the exam (see [README.md](README.md#the-exam)), the phone and the toolchain. The rest is still a first draft, written before the features.
+Story 1 settled the exam (see [README.md](README.md#the-exam)), the phone and the toolchain. Story 2 described the exam format and fixed the catalogs that the content refers to (see [Exam specification](#exam-specification)). The rest is still a first draft, written before the features.
 
 ## Constraints
 
 - **One user, one phone:** Samsung Galaxy S22 Ultra (`SM-S908B`, `arm64-v8a`, built-in S Pen), Android 16 (API level 36), One UI 8.0. No backend of our own, no accounts.
 - **A fixed deadline:** the exam session of January 2027, with one attempt (see [README.md](README.md#the-exam)).
 - **Offline first.** Practice works without a network. Only the assessment of writing and speaking needs the network, and it can wait until the network is back.
-- **The exam is the scope.** Each piece of content refers to a part of the exam, a task type and a B1 topic.
+- **The exam is the scope.** Each piece of content refers to a task type and a B1 topic of the catalogs of story 2.
 - **Claude Code writes the code and the content; the user reviews.** The code must be easy to understand: few layers, no clever abstractions.
 - **Use libraries, do not reinvent them.** A well-known library is preferred to code of our own that does the same work.
 
@@ -22,13 +22,20 @@ repository
 ├── app/        Android app (Kotlin, Jetpack Compose), a self-contained Gradle build
 ├── content/    source of the learning content: topics, tasks, dialogue scripts
 ├── tools/      scripts: content validator, audio generation
-└── docs/       exam specification and other reference material
+└── docs/       exam specification, catalogs and the official sources
 ```
 
 Two flows:
 
 1. **Content flow (on the development machine).** Claude Code writes the content into `content/`. The validator checks it. The audio script makes the audio files. The build packages the content and the audio into the APK.
 2. **Practice flow (on the phone).** The app loads the content into its database, runs the exercises, records the sessions and the results, and sends writing and speaking answers to the cloud LLM for assessment.
+
+## Exam specification
+
+The exam is written down in `docs/`: [exam-spec.md](docs/exam-spec.md) (the structure, the timing, the rules, and how the KEG exam differs), [assessment-criteria.md](docs/assessment-criteria.md), [task-types.md](docs/task-types.md) and [topics.md](docs/topics.md). UCY publishes little, so the gaps are filled from the KEG B1 exam, whose task design UCY shares; each fact names its source.
+
+- **Stable IDs** for the task types, topics, situations, functions and criteria. An ID in use is never renamed or reused, since the user tables keep results and mistakes by ID. The IDs live in the tables of these documents until story 4 makes a machine-readable catalog in `content/` from them; from then on that file is their source.
+- **Every content item is in the exam form** (the counts and the shape of its task type), so any item can go into a mock exam. Practice changes how an item is run, not the item.
 
 ## The app
 
@@ -41,14 +48,15 @@ Two flows:
 - **Dependency injection:** manual (a small app container) unless the app grows enough to need Hilt.
 - **SDK levels:** `minSdk` is the phone's API level, so no compatibility code for older Android versions. The values and their reasons are in [app/build.gradle.kts](app/build.gradle.kts).
 - **The signing key is part of the repository**, encrypted with git-crypt, because a new key forces an uninstall, which loses the progress data. Details in [app/build.gradle.kts](app/build.gradle.kts).
+- **The exam sources are part of the repository**, encrypted with git-crypt: `docs/sources/` holds copyrighted sample papers, and the repository is public. Only the index `docs/sources/README.md` stays readable.
 - **Diagnostics:** the capability probe of story 1 (package `probe`) stays in the app as a diagnostics screen. It shows what a system update or a new phone changes: the TTS voices, the recognizer languages, the ink model.
 
 ## Content
 
-- **Source format:** text files in `content/`, one file per item or per small group, with a stable ID, a topic, an exam part and a task type. Readable in a review, since the reviewer checks the Greek text.
+- **Source format:** text files in `content/`, one file per item or per small group, with a stable ID, a task type and a situation (see [Exam specification](#exam-specification)). Readable in a review, since the reviewer checks the Greek text.
 - **Validation:** a script checks the format, the IDs, the references to the topic catalog and the task types, and reports the coverage per topic and per task type.
 - **Delivery:** the content is packaged into the APK. A new batch of content is a new build. A content version number tells the app to reload its content tables.
-- **Quality of generated Greek:** text that an LLM writes can contain errors. Measures: the user reviews the content; official sample papers are the reference for the style and the level; a second check by another model is possible for a large batch.
+- **Quality of generated Greek:** text that an LLM writes can contain errors. Measures: the user reviews the content; the KEG sample papers are the reference for the style and the level, and [topics.md](docs/topics.md#rules-for-content-items) sets the rules for the setting and the language; a second check by another model is possible for a large batch.
 
 ## Audio (listening)
 
@@ -70,7 +78,7 @@ Two flows:
 ## Assessment
 
 - An interface `Assessor` with a cloud LLM client behind it, so that the model and the provider can change.
-- Each part has a prompt that states the exam's criteria for the task type (from story 2) and asks for structured output (JSON): a score per criterion, the errors with corrections, and advice.
+- Each part has a prompt that states the exam's criteria for the task type and asks for structured output (JSON): a score per criterion, the errors with corrections, and advice. The criteria are the KEG scales, split into criteria with IDs; the input, the procedure and an output sketch are in [assessment-criteria.md](docs/assessment-criteria.md#for-the-llm-prompts-story-9).
 - The results are stored with the model name and the date, so that results from different models can be told apart.
 - Answers made while offline wait in a queue and are sent when the network is back.
 
@@ -96,7 +104,7 @@ Two flows:
 
 ### The exam
 
-- [ ] **The current format** of the exam: the task types, the timing and the criteria per part, from the official sources in [docs/sources/](docs/sources/) (story 2).
+- [ ] **The listening tasks of a UCY paper:** which of the five listening task types it uses, with how many items and points. The largest gap of the specification; until it is filled, the app trains all five and the mock exam uses the KEG pair. UCY could answer by email (smgcertification@ucy.ac.cy). The other gaps and their assumptions are in [exam-spec.md](docs/exam-spec.md#gaps).
 
 ### The design
 
@@ -106,4 +114,4 @@ Two flows:
 - [ ] **Which LLM** for the assessment (story 9)? Decided on real samples of writing and speaking.
 - [ ] **Assess speaking from audio?** Some cloud models take audio directly. That could assess fluency and pronunciation better than a transcript. To check after story 13.
 - [ ] **APK size:** how much audio fits before the content needs a separate download?
-- [ ] **Real audio:** where to get authentic listening material (official sample papers, other sources), and how to use it within its terms.
+- [ ] **Real audio:** where to get authentic listening material (official sample papers, other sources), and how to use it within its terms. The KEG series B sample has published audio, linked in [docs/sources/README.md](docs/sources/README.md).
