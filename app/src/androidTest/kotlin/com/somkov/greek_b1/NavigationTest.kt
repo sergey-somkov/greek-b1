@@ -67,6 +67,7 @@ class NavigationTest {
 
     private fun assertSettings() {
         compose.onNodeWithText(string(R.string.settings)).assertIsDisplayed()
+        compose.onNodeWithText(string(R.string.daily_goal)).assertIsDisplayed()
         compose.onNodeWithText(string(R.string.diagnostics_summary)).assertIsDisplayed()
     }
 

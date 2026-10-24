@@ -19,27 +19,28 @@ In the order of the exam: listening first, then reading and writing, then the sp
 
 <!-- catalog: task_types -->
 
-| ID | Greek name | Exam slot | Items | Points | Answer | Scored by |
-|---|---|---|---|---|---|---|
-| `listening.notes` | Σημειώσεις | Listening, KEG task 1 | 12 + example | 12 | `short_text` | App, key with matching rule |
-| `listening.comparison` | Σύγκριση (συμπλήρωση πίνακα) | Listening, KEG task 2 | 13 ticks + example | 13 | `grid` | App, key |
-| `listening.true_false` | Σωστό/Λάθος | Listening, UCY only | 6–12 + example (Estimate) | 1 each | `choice` | App, key |
-| `listening.gap_fill` | Συμπλήρωση κενών σε κείμενο | Listening, UCY only | 6–12 + example (Estimate) | 1 each | `short_text` | App, key with matching rule |
-| `listening.multiple_choice` | Πολλαπλή επιλογή με 3 επιλογές | Listening, UCY only | 6–12 + example (Estimate) | 1 each | `choice` | App, key |
-| `reading.matching` | Σύνδεση/Αντιστοίχιση προτάσεων/ενοτήτων | Reading, task 1 | 6 + example, 3 distractors | 6 | `assign` | App, key |
-| `reading.comparison` | Σύγκριση (συμπλήρωση πίνακα) | Reading, task 2 | 12 ticks + example | 6 (0.5 each) | `grid` | App, key |
-| `reading.true_false` | Σωστό/Λάθος | Reading, task 3 | 6 + example | 6 | `choice` | App, key |
-| `reading.gap_fill` | Συμπλήρωση κενών | Reading, task 4 | 7 + example, 6 distractors | 7 | `assign` | App, key |
-| `writing.informal` | Α΄ μέρος: φιλικό κείμενο | Writing, part A | 1 text, 150 words | 12 | `text` | LLM, writing scale |
-| `writing.formal` | Β΄ μέρος: τυπικό κείμενο | Writing, part B | 1 text, 150 words | 13 | `text` | LLM, writing scale |
-| `speaking.interview` | Α΄ μέρος: απλές ερωτήσεις | Speaking, part A | 6–8 questions | — | `speech` | LLM, speaking criteria |
-| `speaking.opinion` | Β΄ μέρος: σύντομος μονόλογος | Speaking, part B, first half | 1 question | — | `speech` | LLM, speaking criteria |
-| `speaking.picture` | Β΄ μέρος: φωτογραφία | Speaking, part B, second half | 1 picture | — | `speech` | LLM, speaking criteria |
-| `speaking.roleplay` | Γ΄ μέρος: παιχνίδι ρόλων | Speaking, part C | 2 role cards | — | `dialogue` | LLM, speaking criteria |
+| ID | Greek name | Exam slot | Items | Points | Time | Answer | Scored by |
+|---|---|---|---|---|---|---|---|
+| `listening.notes` | Σημειώσεις | Listening, KEG task 1 | 12 + example | 12 | 15 min | `short_text` | App, key with matching rule |
+| `listening.comparison` | Σύγκριση (συμπλήρωση πίνακα) | Listening, KEG task 2 | 13 ticks + example | 13 | 15 min | `grid` | App, key |
+| `listening.true_false` | Σωστό/Λάθος | Listening, UCY only | 6–12 + example (Estimate) | 1 each | 15 min | `choice` | App, key |
+| `listening.gap_fill` | Συμπλήρωση κενών σε κείμενο | Listening, UCY only | 6–12 + example (Estimate) | 1 each | 15 min | `short_text` | App, key with matching rule |
+| `listening.multiple_choice` | Πολλαπλή επιλογή με 3 επιλογές | Listening, UCY only | 6–12 + example (Estimate) | 1 each | 15 min | `choice` | App, key |
+| `reading.matching` | Σύνδεση/Αντιστοίχιση προτάσεων/ενοτήτων | Reading, task 1 | 6 + example, 3 distractors | 6 | 12.5 min | `assign` | App, key |
+| `reading.comparison` | Σύγκριση (συμπλήρωση πίνακα) | Reading, task 2 | 12 ticks + example | 6 (0.5 each) | 12.5 min | `grid` | App, key |
+| `reading.true_false` | Σωστό/Λάθος | Reading, task 3 | 6 + example | 6 | 12.5 min | `choice` | App, key |
+| `reading.gap_fill` | Συμπλήρωση κενών | Reading, task 4 | 7 + example, 6 distractors | 7 | 12.5 min | `assign` | App, key |
+| `writing.informal` | Α΄ μέρος: φιλικό κείμενο | Writing, part A | 1 text, 150 words | 12 | 35 min | `text` | LLM, writing scale |
+| `writing.formal` | Β΄ μέρος: τυπικό κείμενο | Writing, part B | 1 text, 150 words | 13 | 35 min | `text` | LLM, writing scale |
+| `speaking.interview` | Α΄ μέρος: απλές ερωτήσεις | Speaking, part A | 6–8 questions | — | 2 min | `speech` | LLM, speaking criteria |
+| `speaking.opinion` | Β΄ μέρος: σύντομος μονόλογος | Speaking, part B, first half | 1 question | — | 1.5 min | `speech` | LLM, speaking criteria |
+| `speaking.picture` | Β΄ μέρος: φωτογραφία | Speaking, part B, second half | 1 picture | — | 3 min | `speech` | LLM, speaking criteria |
+| `speaking.roleplay` | Γ΄ μέρος: παιχνίδι ρόλων | Speaking, part C | 2 role cards | — | 6 min | `dialogue` | LLM, speaking criteria |
 
 <!-- /catalog -->
 
 - **Speaking has no points per type:** the five criteria rate the whole performance over the three parts (see [assessment-criteria.md](assessment-criteria.md#speaking)). In practice the app rates one type at a time on the same criteria.
+- **The time** is the time of the task: the time limit of a trial, the first sight of an item under exam conditions (see [DESIGN.md](../DESIGN.md#progress)). It is derived from the time of the part in the exam, as the section of each part says; past it the user may finish, and the time over it reduces the readiness that the trial shows.
 - **Part B of speaking is two types**, because KEG splits it into two halves with different input: a question, and a picture (see [exam-spec.md](exam-spec.md#part-b-a-short-monologue-β-μέρος)). UCY names only the monologue and the photos.
 - **The mock exam** (story 14) uses: listening `notes` + `comparison` (the KEG pair, see [exam-spec.md](exam-spec.md#gaps)); the four reading types in their order; `writing.informal` + `writing.formal`; and the speaking types `interview`, `opinion`, `picture`, `roleplay` in a row.
 
@@ -82,6 +83,7 @@ Common to all listening types:
 - **Text types** (UCY): friendly to fairly formal texts, informative texts, extracts from interviews or literary works, dialogues, on the situations of B1.
 - **Exam form:** the audio plays twice, with a pause before the first play to read the task and between the plays; no pause or seeking. The length of the pauses is for story 7.
 - **Items in the order of the text.** The answers come in the order in which they are heard.
+- **Time:** in the exam, 30 minutes for the part; the time of a single task is 15 minutes, half of 30, as the KEG pair notes + comparison splits it. The three types that KEG does not use get the same (Estimate).
 
 ### `listening.notes`
 
@@ -136,7 +138,7 @@ Estimate: UCY names the type only; there is no sample.
 
 ## Reading
 
-Common to all reading types: the text and the task are shown together; the answers are numbers or ticks, never written words. In the exam form the four tasks share one timer of 50 minutes; a single task in practice gets 12 minutes (Estimate: a quarter of 50).
+Common to all reading types: the text and the task are shown together; the answers are numbers or ticks, never written words. In the exam form the four tasks share one timer of 50 minutes; the time of a single task is 12.5 minutes (Estimate: a quarter of 50).
 
 ### `reading.matching`
 
@@ -189,7 +191,7 @@ Common to both writing types:
 - **A model answer** of about 150 words (optional): shown after the assessment, for comparison. Estimate: the exam has none.
 - **Answer:** `text`.
 - **Scoring:** the LLM rates the text on the 25-point writing scale, with the six criteria and the caps of [assessment-criteria.md](assessment-criteria.md#writing); the points of the part are 12/25 or 13/25 of the rating.
-- **Time:** in the exam, 70 minutes for both texts; a single text in practice gets 35 minutes (Estimate: half of 70).
+- **Time:** in the exam, 70 minutes for both texts; the time of a single text is 35 minutes (Estimate: half of 70).
 - **Checks:** the genre is one of the type's values; 2–4 points to cover; the start of the text is given; the signature name is given, and the instruction names it (warning).
 
 ### `writing.informal`
@@ -226,7 +228,7 @@ Common to all speaking types:
 - **Input:** the Greek text that the examiner or the partner says, read by the system TTS (see [DESIGN.md](../DESIGN.md#audio-listening)).
 - **Answer:** the recording and its transcript (story 12); `speech` or `dialogue`.
 - **Scoring:** the LLM rates the five speaking criteria of [assessment-criteria.md](assessment-criteria.md#speaking); `pronunciation` only when it gets the audio.
-- **Time:** the exam gives 12 minutes per pair for the three parts. The times below are the estimate of [exam-spec.md](exam-spec.md#speaking-παραγωγή-προφορικού-λόγου).
+- **Time:** the exam gives 12 minutes per pair for the three parts. The times below are the estimate of [exam-spec.md](exam-spec.md#speaking-παραγωγή-προφορικού-λόγου). The time of a task is the upper end of its estimate, with the time to look at the picture or to read the role: 2 minutes for the interview, 1.5 for the opinion, 3 for the picture and 6 for the role play, 12.5 in all (Estimate).
 
 ### `speaking.interview`
 

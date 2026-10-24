@@ -10,7 +10,7 @@ The app has one job: to get its single user through the B1 exam. It is not a gen
 
 - **Train the four parts of the exam:** listening, reading, writing and speaking, with tasks in the formats the exam uses.
 - **Stay inside the B1 exam scope.** The content covers the topics and the task types that the exam uses at B1. Other topics are left out or kept to a minimum.
-- **Regular daily practice.** The app records the time spent and the results of each day, and shows the progress towards the exam.
+- **Regular daily practice.** The app records every session and its result, and shows the readiness for each part of the exam on each topic, and the time of each day against a daily goal.
 - **Use the device's own capabilities, offline where possible:**
   - text-to-speech for the listening tasks,
   - speech-to-text for the speaking tasks,
@@ -62,7 +62,8 @@ On Linux (Ubuntu 24.04), with the command-line tools only: no Android Studio is 
    - `tools/start.sh`: starts the app on the phone.
    - `tools/logs.sh`: follows the log of the app, crashes and library messages included; `-d` prints it and exits.
    - `tools/test.sh`: runs the unit tests on the JVM; the phone is not needed.
-   - `tools/test-device.sh`: runs the tests on the phone (the navigation, the database, the load of the content). They run against a copy of the app under its own application ID, which Gradle installs and removes; the installed app and its data are not touched.
+   - `tools/test-device.sh`: runs the tests on the phone (the navigation, the database, the load of the content, the session recorder, the screens). They run against a copy of the app under its own application ID, which Gradle installs and removes; the installed app and its data are not touched. The screenshots that the tests take for a review (the progress screen on made-up data) land in `app/build/outputs/connected_android_test_additional_output/`.
+   - `tools/drawables.py`: writes the vector drawables of the app as SVG to one HTML page (`app/build/drawables.html`), to look at the icons outside Android Studio.
 
    Never uninstall the app or clear its data: that loses the progress data.
 

@@ -101,6 +101,7 @@ def task_type(type_id: str) -> dict[str, Any]:
         exam_slot="A slot",
         items="1",
         points="1",
+        minutes=12.5,
         answer=ANSWER_FORMATS[type_id],
         scored_by="App",
     )
@@ -714,6 +715,14 @@ CATALOG_RULES = [
     (
         setting("task_types", "task_types", 0, "part", "reading"),
         "error: task_types[0].id: a task type ID is <part>.<type>, with the part of `part`",
+    ),
+    (
+        setting("task_types", "task_types", 0, "minutes", 0),
+        "error: task_types[0].minutes: input should be greater than 0",
+    ),
+    (
+        setting("task_types", "task_types", 0, "minutes", 12.25),
+        "error: task_types[0].minutes: the time of a task is in whole or half minutes",
     ),
     (
         setting("task_types", "task_types", 0, "answer", "draw"),

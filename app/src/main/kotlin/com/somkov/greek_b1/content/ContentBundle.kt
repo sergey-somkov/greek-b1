@@ -1,5 +1,6 @@
 package com.somkov.greek_b1.content
 
+import kotlin.math.roundToInt
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -39,7 +40,14 @@ fun decodeBundle(json: String): ContentRows {
             )
         },
         taskTypes = catalog.taskTypes.taskTypes.map {
-            CatalogTaskType(it.id, it.part, it.greek, answerFormat = it.answer, it.retired)
+            CatalogTaskType(
+                it.id,
+                it.part,
+                it.greek,
+                answerFormat = it.answer,
+                timeSeconds = (it.minutes * 60).roundToInt(),
+                it.retired,
+            )
         },
         topics = catalog.topics.topics.map { CatalogTopic(it.id, it.name, it.greek, it.retired) },
         situations = catalog.topics.topics.flatMap { topic ->
@@ -77,6 +85,8 @@ private class TaskType(
     val greek: String,
     /** The ID of the answer format. */
     val answer: String,
+    /** The time of the task, in whole or half minutes. */
+    val minutes: Double,
     val retired: Boolean,
 )
 

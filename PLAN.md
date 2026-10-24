@@ -40,7 +40,7 @@ The last task of a story that changes the app raises `versionCode` (see [app/bui
 ## Milestones
 
 1. **Foundation** (stories 1–4): the toolchain, the exam specification, the app skeleton and the content pipeline.
-2. **Daily practice of the receptive skills** (stories 5–8): the daily progress tracking, reading and listening. From here on the app is used every day.
+2. **Daily practice of the receptive skills** (stories 5–8): the tracking of the sessions and the readiness, reading and listening. From here on the app is used every day.
 3. **Productive skills** (stories 9–13): writing, handwriting, speaking, and their assessment by the LLM.
 4. **Exam readiness** (stories 14–18): the mock exam, the daily plan, the review of mistakes, full content coverage, and backup.
 
@@ -72,17 +72,17 @@ The base structure of the app: Kotlin, Jetpack Compose, navigation between the m
 
 The format of the learning content in the repository (texts, tasks, answers, dialogue scripts, references to audio), with stable IDs and references to the task type and the situation of the catalogs of story 2. The machine-readable catalog of the task types, topics, situations and functions, made from the tables of story 2, which from then on is the source of the IDs. A validator script that checks the content against the format and the catalog. The packaging of the content into the APK, and its load into the app's database on the first start and after each update, so that the progress data survives a content update. A small sample set of content to test the pipeline.
 
-### 5. Daily time and progress tracking
+### 5. Sessions and readiness tracking
 - Branch: `story/progress-tracking`
-- Status: Not started
+- Status: Done
 
-Record every practice session: the start, the end, the part, the tasks done and their results. A daily goal in minutes, the first setting of the app, which brings in the settings store. A progress screen: the time per day, the streak, the results per part over time, and the days left until the exam. This comes before the exercises so that every exercise is recorded from its first use.
+Record every session on a content item, of two kinds. A trial is the first sight of a new item under exam conditions: its timer runs without a stop, the user may finish after the time is up, and the real time is recorded. A study session is any work on an item after its trial, any number of times, and its timer counts only the time with the item on the screen. The readiness for each part of the exam on each topic comes from the last trial of that topic and part, its points reduced by the time over the limit; the progress screen shows it as a heat map of 15 topics × 4 parts. Per topic, the parts follow the chain reading → listening → writing → speaking: a part whose previous part is below the pass mark is not advised, though it stays open. A daily goal in minutes, the first setting of the app, which brings in the settings store; the minutes per day against it in a calendar until the exam. This comes before the exercises so that every exercise is recorded from its first use.
 
 ### 6. Reading
 - Branch: `story/reading`
 - Status: Not started
 
-The reading part: the four task types of the exam (matching, comparison, true/false, gap fill from a word bank), an exam-like timer, the check of the answers with explanations, and the results recorded by story 5. The first batch of reading content over the topic catalog.
+The reading part: the four task types of the exam (matching, comparison, true/false, gap fill from a word bank), the list of the items with the log of each (a new item opens only as a trial), the trial with its exam timer and the study session of story 5, the check of the answers with explanations. A play button reads the text aloud with the system TTS, as a preparation for listening. The first batch of reading content over the topic catalog.
 
 ### 7. Listening with the system TTS
 - Branch: `story/listening`
@@ -130,13 +130,13 @@ The speaking part: the task types of the exam (for example interview questions, 
 - Branch: `story/mock-exam`
 - Status: Not started
 
-A full exam under exam conditions: the four parts in the exam's order and timing, no help, and a result per part and in total, with an estimate of pass or fail. A second timing profile for the KEG exam, which is also a harder practice for the UCY one. The mock exams are recorded separately in the progress data.
+A full exam under exam conditions: the four parts in the exam's order and timing, no help, and a result per part and in total, with an estimate of pass or fail. A second timing profile for the KEG exam, which is also a harder practice for the UCY one. How the mock exams are recorded, and whether they count for the readiness of story 5, is decided in this story.
 
 ### 15. Daily plan
 - Branch: `story/daily-plan`
 - Status: Not started
 
-The app proposes the practice of the day from the results so far, the weak parts and topics, the daily goal and the days left until the exam. The home screen starts the next exercise in one tap.
+The app proposes the practice of the day from the readiness of story 5: the next trials along the chain of the parts of each topic, the study sessions on the weak topics, the daily goal and the days left until the exam. The home screen starts the next exercise in one tap.
 
 ### 16. Review of mistakes
 - Branch: `story/mistakes-review`
@@ -148,7 +148,7 @@ Collect the errors from all parts (wrong answers, the corrections from the writi
 - Branch: `story/content-coverage`
 - Status: Not started
 
-Fill the gaps in the content: enough items for every topic of the catalog and every task type of every part, for the planned number of weeks of daily practice and for several different mock exams. Extends the coverage report of story 4 with the targets.
+Fill the gaps in the content: enough items for every topic of the catalog and every task type of every part, for the planned number of weeks of daily practice and for several different mock exams. Extends the coverage report of story 4 with the targets. Each new measure of the readiness of a topic in a part (story 5) uses up a new item, so the targets count the new items per topic and part, the reading first, since it opens the chain.
 
 ### 18. Backup and restore
 - Branch: `story/backup`

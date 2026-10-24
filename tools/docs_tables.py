@@ -53,9 +53,18 @@ def find(entries, entry_id, kind):
 
 def render_task_types(catalog):
     return table(
-        ["ID", "Greek name", "Exam slot", "Items", "Points", "Answer", "Scored by"],
+        ["ID", "Greek name", "Exam slot", "Items", "Points", "Time", "Answer", "Scored by"],
         [
-            [id_cell(t), t["greek"], t["exam_slot"], t["items"], t["points"], code(t["answer"]), t["scored_by"]]
+            [
+                id_cell(t),
+                t["greek"],
+                t["exam_slot"],
+                t["items"],
+                t["points"],
+                f"{t['minutes']:g} min",
+                code(t["answer"]),
+                t["scored_by"],
+            ]
             for t in catalog["task_types"]["task_types"]
         ],
     )

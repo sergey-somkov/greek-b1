@@ -4,7 +4,8 @@ It checks:
 
 - that each catalog file and each item file can be read, and its format
   (formats.py);
-- the catalog: unique IDs, and the references between its entries;
+- the catalog: unique IDs, the references between its entries, and the
+  time of each task type;
 - the tables of the docs: equal to what `tools/content.py docs` writes;
 - the path of each item file, items/<part>/<type>/<part>.<type>.<NNN>.yaml,
   and that the task type of the file is that of its name;
@@ -322,6 +323,8 @@ def check_task_types(catalog: TaskTypesFile, file: FileReport) -> None:
         loc = ("task_types", i)
         if not TASK_TYPE_ID.match(task_type.id) or not task_type.id.startswith(task_type.part + "."):
             file.error((*loc, "id"), "a task type ID is <part>.<type>, with the part of `part`")
+        if task_type.minutes * 2 != int(task_type.minutes * 2):
+            file.error((*loc, "minutes"), "the time of a task is in whole or half minutes")
         check_ref(file, (*loc, "answer"), "answer format", task_type.answer, formats, task_type.retired)
         check_unique(file, ids_at((*loc, "genres"), task_type.genres or []))
         check_unique(file, ids_at((*loc, "kinds"), task_type.kinds or []))

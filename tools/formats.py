@@ -84,6 +84,7 @@ class TaskType(Entry):
     exam_slot: Text
     items: Text
     points: Text
+    minutes: Annotated[float, Field(gt=0)]
     answer: Text
     scored_by: Text
     genres: list[Genre] | None = None

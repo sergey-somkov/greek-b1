@@ -3,6 +3,10 @@ package com.somkov.greek_b1.content
 import androidx.room3.useReaderConnection
 import androidx.test.platform.app.InstrumentationRegistry
 import com.somkov.greek_b1.data.AppDatabase
+import com.somkov.greek_b1.session.AnswerCheck
+import com.somkov.greek_b1.session.Session
+import com.somkov.greek_b1.session.SessionKind
+import com.somkov.greek_b1.session.SessionState
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -46,7 +50,7 @@ class ContentLoaderTest {
             ),
             rows("content_item"),
         )
-        assertEquals(listOf("reading.true_false|reading|Σωστό ή λάθος|choice|0"), rows("catalog_task_type"))
+        assertEquals(listOf("reading.true_false|reading|Σωστό ή λάθος|choice|750|0"), rows("catalog_task_type"))
         assertEquals(listOf("personal|Personal identification|Προσωπικά στοιχεία|0"), rows("catalog_topic"))
         assertEquals(
             listOf("personal.details|personal|Personal details|Προσωπικά στοιχεία|0"),
@@ -79,6 +83,33 @@ class ContentLoaderTest {
         // The other tables hold the rows of the second bundle only, not two copies.
         assertEquals(1, rows("catalog_situation").size)
         assertEquals(2, rows("catalog_criterion").size)
+    }
+
+    @Test
+    fun `a new version keeps the user tables`() = runBlocking<Unit> {
+        loader("1", FIRST).load()
+        val dao = database.sessionDao()
+        val sessionId = dao.insertSession(
+            Session(
+                itemId = "reading.true_false.001",
+                kind = SessionKind.TRIAL,
+                state = SessionState.FINISHED,
+                timeLimitSeconds = 750,
+                startedAtMillis = 1_792_832_400_000,
+                zoneOffsetSeconds = 3 * 3600,
+                endedAtMillis = 1_792_833_000_000,
+                activeMillis = 600_000,
+                answers = "{}",
+            ),
+        )
+        dao.insertCheck(
+            AnswerCheck(sessionId = sessionId, checkedAtMillis = 1_792_833_000_000, answers = "{}", points = 3.0, maxPoints = 5.0),
+        )
+        val before = USER_TABLES.map { rows(it) }
+
+        assertTrue(loader("2", bundle(topic = "Changed", "reading.true_false.001" to "First, corrected")).load())
+
+        assertEquals(before, USER_TABLES.map { rows(it) })
     }
 
     @Test
@@ -160,6 +191,8 @@ class ContentLoaderTest {
             "catalog_criterion",
         )
 
+        val USER_TABLES = listOf("session", "answer_check")
+
         val FIRST = bundle(
             topic = "Personal identification",
             "reading.true_false.001" to "First",
@@ -184,7 +217,8 @@ class ContentLoaderTest {
                   "task_types": {
                     "answer_formats": [{"id": "choice", "retired": false}],
                     "task_types": [{"id": "reading.true_false", "retired": false, "part": "reading",
-                                    "greek": "Σωστό ή λάθος", "answer": "choice", "points": "5"}]},
+                                    "greek": "Σωστό ή λάθος", "answer": "choice", "points": "5",
+                                    "minutes": 12.5}]},
                   "topics": {
                     "topics": [{"id": "personal", "retired": false, "name": "$topic",
                                 "greek": "Προσωπικά στοιχεία",

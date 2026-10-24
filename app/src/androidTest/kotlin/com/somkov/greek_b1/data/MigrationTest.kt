@@ -5,6 +5,10 @@ import androidx.sqlite.driver.AndroidSQLiteDriver
 import androidx.sqlite.execSQL
 import androidx.test.platform.app.InstrumentationRegistry
 import com.somkov.greek_b1.content.ContentItem
+import com.somkov.greek_b1.session.AnswerCheck
+import com.somkov.greek_b1.session.Session
+import com.somkov.greek_b1.session.SessionKind
+import com.somkov.greek_b1.session.SessionState
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -51,12 +55,36 @@ class MigrationTest {
             retired = false,
             body = "{}",
         )
+        val session = Session(
+            id = 1,
+            itemId = item.id,
+            kind = SessionKind.TRIAL,
+            state = SessionState.OPEN,
+            timeLimitSeconds = 750,
+            startedAtMillis = 1_792_832_400_000,
+            zoneOffsetSeconds = 3 * 3600,
+            endedAtMillis = null,
+            activeMillis = 0,
+            answers = """{"1":"α"}""",
+        )
+        val check = AnswerCheck(
+            id = 1,
+            sessionId = session.id,
+            checkedAtMillis = 1_792_833_000_000,
+            answers = """{"1":"α"}""",
+            points = 1.0,
+            maxPoints = 5.0,
+        )
         AppDatabase.build(context, NAME).apply {
             contentDao().insertItems(listOf(item))
+            sessionDao().insertSession(session)
+            sessionDao().insertCheck(check)
             close()
         }
         AppDatabase.build(context, NAME).apply {
             assertEquals(item, contentDao().item(item.id))
+            assertEquals(session, sessionDao().session(session.id))
+            assertEquals(listOf(check), sessionDao().checks(session.id))
             close()
         }
     }
@@ -80,6 +108,30 @@ class MigrationTest {
             val query = "SELECT name FROM sqlite_master WHERE name = 'placeholder'"
             connection.prepare(query).use { statement ->
                 assertFalse(statement.step())
+            }
+        }
+    }
+
+    @Test
+    fun `version 2 keeps its content and gets the user tables`() = runBlocking<Unit> {
+        helper.createDatabase(2).apply {
+            execSQL(
+                "INSERT INTO catalog_task_type (id, part, greek, answer_format, retired) " +
+                    "VALUES ('reading.true_false', 'reading', 'Σωστό ή λάθος', 'choice', 0)",
+            )
+            close()
+        }
+        helper.runMigrationsAndValidate(AppDatabase.VERSION, MIGRATIONS).use { connection ->
+            // The time of the task is 0 until the next content load writes it.
+            val query = "SELECT id, time_seconds FROM catalog_task_type"
+            connection.prepare(query).use { statement ->
+                assertTrue(statement.step())
+                assertEquals("reading.true_false", statement.getText(0))
+                assertEquals(0L, statement.getLong(1))
+            }
+            connection.prepare("SELECT COUNT(*) FROM session").use { statement ->
+                assertTrue(statement.step())
+                assertEquals(0L, statement.getLong(0))
             }
         }
     }

@@ -12,7 +12,42 @@
     <string name="diagnostics">Diagnostics</string>
 
     <!-- The settings. -->
+    <string name="daily_goal">Daily goal</string>
+    <string name="daily_goal_less">Less time</string>
+    <string name="daily_goal_more">More time</string>
     <string name="diagnostics_summary">Content version, TTS voices, speech recognition, handwriting model</string>
+
+    <!-- The progress screen. -->
+    <string name="progress_empty">Nothing is recorded yet. The readiness for each part of the exam and the time per day appear here after the first exercise.</string>
+    <string name="readiness">Readiness</string>
+    <string name="readiness_legend">The last trial of each topic in each part, reduced by the time over the limit: red 0%, yellow 60% (the pass mark), green 100%. Gray: no result yet. Outlined: not advised yet, the previous part of the topic is below 60%. Tap a cell for its trials.</string>
+    <!-- A cell of the heat map: the topic and the part. -->
+    <string name="readiness_cell">%1$s, %2$s</string>
+    <string name="readiness_of_cell">Readiness %1$s</string>
+    <string name="readiness_none">No result yet</string>
+    <string name="readiness_not_advised">Not advised yet: %1$s of this topic is below 60%%.</string>
+    <string name="trials_none">No trials yet.</string>
+    <!-- A trial: the points of its check, out of the maximum, in its time against the time of the task. -->
+    <string name="trial_result">%1$s/%2$s in %3$s of %4$s</string>
+    <string name="trial_unassessed">in %1$s of %2$s, not assessed yet</string>
+    <string name="trial_open">in progress</string>
+    <string name="trial_abandoned">abandoned</string>
+    <string name="time_per_day">Time per day</string>
+    <string name="time_per_day_goal">Daily goal %1$s</string>
+    <string name="time_per_day_legend">The fuller the color of a day, the more of the goal; a check mark: the goal met. Tap a day for its minutes.</string>
+    <!-- The label of the day of the exam in the calendar. -->
+    <string name="exam">Exam</string>
+    <!-- The minutes of a day: the date, the minutes and the goal. -->
+    <string name="day_minutes">%1$s: %2$s of %3$s</string>
+    <!-- The study time and the trial time of a day, and the number of trials. -->
+    <string name="day_split">Study %1$s, trials %2$s (%3$s)</string>
+    <string name="day_before_exam">%1$s: %2$s before the exam</string>
+    <string name="day_of_exam">%1$s: the day of the exam</string>
+    <plurals name="trials">
+        <item quantity="one">%d trial</item>
+        <item quantity="other">%d trials</item>
+    </plurals>
+    <string name="close">Close</string>
 
     <!-- The countdown on home. -->
     <string name="countdown_registration">until the UCY registration opens</string>
@@ -24,6 +59,14 @@
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>
     </plurals>
+    <!-- Today on home: today's minutes, the daily goal and today's trials. -->
+    <string name="today">Today: %1$s of %2$s · %3$s</string>
+    <string name="today_goal_met">Daily goal met</string>
+
+    <!-- A duration in hours and minutes. -->
+    <string name="duration_minutes">%d min</string>
+    <string name="duration_hours">%d h</string>
+    <string name="duration_hours_minutes">%1$d h %2$d min</string>
 
     <string name="back">Back</string>
     <string name="placeholder">Not built yet.</string>

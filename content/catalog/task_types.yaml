@@ -20,6 +20,9 @@
 #   exam_slot  where the type is in the exam
 #   items      the counts of an item of the type, as the overview shows them
 #   points     the points, as the overview shows them
+#   minutes    the time of the task: the time limit of a trial of an item of the type, in
+#              whole or half minutes, derived from the time of its part in the exam (see
+#              docs/task-types.md)
 #   answer     the ID of the answer format
 #   scored_by  who scores the answer, and how
 #   genres     writing only: the text types that an item can ask for
@@ -73,6 +76,7 @@ task_types:
     exam_slot: Listening, KEG task 1
     items: 12 + example
     points: '12'
+    minutes: 15
     answer: short_text
     scored_by: App, key with matching rule
 
@@ -83,6 +87,7 @@ task_types:
     exam_slot: Listening, KEG task 2
     items: 13 ticks + example
     points: '13'
+    minutes: 15
     answer: grid
     scored_by: App, key
 
@@ -93,6 +98,7 @@ task_types:
     exam_slot: Listening, UCY only
     items: 6–12 + example (Estimate)
     points: 1 each
+    minutes: 15
     answer: choice
     scored_by: App, key
 
@@ -103,6 +109,7 @@ task_types:
     exam_slot: Listening, UCY only
     items: 6–12 + example (Estimate)
     points: 1 each
+    minutes: 15
     answer: short_text
     scored_by: App, key with matching rule
 
@@ -113,6 +120,7 @@ task_types:
     exam_slot: Listening, UCY only
     items: 6–12 + example (Estimate)
     points: 1 each
+    minutes: 15
     answer: choice
     scored_by: App, key
 
@@ -123,6 +131,7 @@ task_types:
     exam_slot: Reading, task 1
     items: 6 + example, 3 distractors
     points: '6'
+    minutes: 12.5
     answer: assign
     scored_by: App, key
 
@@ -133,6 +142,7 @@ task_types:
     exam_slot: Reading, task 2
     items: 12 ticks + example
     points: 6 (0.5 each)
+    minutes: 12.5
     answer: grid
     scored_by: App, key
 
@@ -143,6 +153,7 @@ task_types:
     exam_slot: Reading, task 3
     items: 6 + example
     points: '6'
+    minutes: 12.5
     answer: choice
     scored_by: App, key
 
@@ -153,6 +164,7 @@ task_types:
     exam_slot: Reading, task 4
     items: 7 + example, 6 distractors
     points: '7'
+    minutes: 12.5
     answer: assign
     scored_by: App, key
 
@@ -163,6 +175,7 @@ task_types:
     exam_slot: Writing, part A
     items: 1 text, 150 words
     points: '12'
+    minutes: 35
     answer: text
     scored_by: LLM, writing scale
     genres:
@@ -189,6 +202,7 @@ task_types:
     exam_slot: Writing, part B
     items: 1 text, 150 words
     points: '13'
+    minutes: 35
     answer: text
     scored_by: LLM, writing scale
     genres:
@@ -211,6 +225,7 @@ task_types:
     exam_slot: Speaking, part A
     items: 6–8 questions
     points: —
+    minutes: 2
     answer: speech
     scored_by: LLM, speaking criteria
 
@@ -221,6 +236,7 @@ task_types:
     exam_slot: Speaking, part B, first half
     items: 1 question
     points: —
+    minutes: 1.5
     answer: speech
     scored_by: LLM, speaking criteria
 
@@ -231,6 +247,7 @@ task_types:
     exam_slot: Speaking, part B, second half
     items: 1 picture
     points: —
+    minutes: 3
     answer: speech
     scored_by: LLM, speaking criteria
 
@@ -241,6 +258,7 @@ task_types:
     exam_slot: Speaking, part C
     items: 2 role cards
     points: —
+    minutes: 6
     answer: dialogue
     scored_by: LLM, speaking criteria
     kinds:

@@ -60,6 +60,7 @@ def test_the_bundle_has_the_catalog_in_its_format(repo: Path):
     assert [topic["id"] for topic in catalog["topics"]["topics"]] == ["home", "past"]
     assert catalog["topics"]["topics"][1]["retired"] is True
     assert catalog["criteria"]["writing"][0]["bands"]["1"] == "Band 1."
+    assert catalog["task_types"]["task_types"][0]["minutes"] == 12.5
 
 
 def test_the_same_content_gives_the_same_version(repo: Path, tmp_path: Path):

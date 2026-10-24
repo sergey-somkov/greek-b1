@@ -49,6 +49,12 @@ data class CatalogTaskType(
     val greek: String,
     /** The ID of the answer format: `choice`, `assign`, `grid`, `short_text`, `text`, ... */
     @ColumnInfo(name = "answer_format") val answerFormat: String,
+    /**
+     * The time of the task: the time limit of a trial of an item of the type, in seconds. The
+     * default is for the migration 2 → 3, which adds the column to the rows of an older bundle;
+     * the bundle with the times has a new content version, so the next load replaces them.
+     */
+    @ColumnInfo(name = "time_seconds", defaultValue = "0") val timeSeconds: Int,
     val retired: Boolean,
 )
 
@@ -120,6 +126,9 @@ interface ContentDao {
 
     @Query("SELECT * FROM content_item WHERE id = :id")
     suspend fun item(id: String): ContentItem?
+
+    @Query("SELECT * FROM catalog_task_type WHERE id = :id")
+    suspend fun taskType(id: String): CatalogTaskType?
 
     // The load: it deletes every row of the content tables and inserts the bundle's.
 

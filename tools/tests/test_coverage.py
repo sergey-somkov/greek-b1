@@ -19,6 +19,7 @@ def task_type(type_id: str, retired: bool = False) -> dict[str, Any]:
         exam_slot="A slot",
         items="1",
         points="1",
+        minutes=12.5,
         answer="choice",
         scored_by="App",
     )

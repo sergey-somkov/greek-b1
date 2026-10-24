@@ -31,8 +31,8 @@ android {
         // Raised by one on each merge to master, in the last task of a story, so that the phone
         // shows which version it runs. The app info on the phone shows only versionName, so it
         // follows versionCode.
-        versionCode = 3
-        versionName = "0.3"
+        versionCode = 4
+        versionName = "0.4"
 
         // The app runs on one phone. ML Kit adds about 7 MB of native code to the APK,
         // and it brings libraries for four ABIs.
@@ -163,12 +163,19 @@ dependencies {
     implementation(libs.mlkit.digital.ink)
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
+    // The settings (see settings/Settings.kt).
+    implementation(libs.datastore.preferences)
 
     // JUnit 4 on the JVM and on the phone: one framework, the Android default.
     testImplementation(libs.junit)
+    // Virtual time for the flows that wait on the clock.
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.compose.ui.test.junit4)
+    // The empty activity in which a device test shows a composable of its own; only in the
+    // copy of the app that the device tests run against.
+    "instrumentedImplementation"(libs.compose.ui.test.manifest)
     // pressBack: the system back, as the back gesture sends it.
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.room.testing)
